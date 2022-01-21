@@ -1,14 +1,14 @@
-package com.nachohm.peliculasActores.service;
+package com.nachohm.peliculasActores.dao;
 
 import com.nachohm.peliculasActores.models.Actores;
 
 import java.util.List;
 
-public interface IActoresService {
+public interface IActoresDAO {
 
     List<Actores> buscarTodosActores();
-    List<Actores> buscarActoresPorNombre(String nombre);
-    List<Actores> buscarActoresPorNacionalidad(String nacionalidad);
+    List<Actores> buscarPorNombre(String nombre);
+    List<Actores> buscarPorNacionalidad(String naciona);
     void guardarActor(Actores actor);
     void actualizarActor(Actores actor);
     void eliminarActor(Integer id);
