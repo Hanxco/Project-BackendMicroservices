@@ -1,6 +1,8 @@
 package com.nachohm.peliculasActores.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,6 +33,20 @@ public class Pelicula {
 
     @Column(name = "genero", length = 45)
     private String genero;
+
+    @ManyToMany
+    @JoinTable(name = "peliculas_actor",
+            joinColumns = @JoinColumn(name = "pelicula_id_peliculas"),
+            inverseJoinColumns = @JoinColumn(name = "actoreses_idactores"))
+    private List<Actores> actoreses = new ArrayList<>();
+
+    public List<Actores> getActoreses() {
+        return actoreses;
+    }
+
+    public void setActoreses(List<Actores> actoreses) {
+        this.actoreses = actoreses;
+    }
 
     public String getGenero() {
         return genero;
@@ -107,5 +123,19 @@ public class Pelicula {
     @Override
     public int hashCode() {
         return Objects.hash(idPeliculas, titulo, anio, duracion, pais, direccion, sinopsis, genero);
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "idPeliculas=" + idPeliculas +
+                ", titulo='" + titulo + '\'' +
+                ", anio=" + anio +
+                ", duracion=" + duracion +
+                ", pais='" + pais + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", sinopsis='" + sinopsis + '\'' +
+                ", genero='" + genero + '\'' +
+                '}';
     }
 }

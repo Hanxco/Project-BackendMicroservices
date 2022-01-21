@@ -1,0 +1,427 @@
+{
+	"info": {
+		"_postman_id": "9926351c-8901-4130-828f-1234911e76ac",
+		"name": "FrameworksBackend-PeliculasActores",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Peliculas",
+			"item": [
+				{
+					"name": "Busca todas las peliculas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca peliculas por titulo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/titulo/TE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"titulo",
+								"TE"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca peliculas por genero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/genero/comedia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"genero",
+								"comedia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca peliculas por año",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/anio/2011",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"anio",
+								"2011"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca peliculas por duración",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/genero/comedia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"genero",
+								"comedia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca peliculas por director",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/director/nacho",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"director",
+								"nacho"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crea una nueva apelicula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"MI PELICULA\",\r\n    \"anio\": \"2021\",\r\n    \"duracion\" : \"120\",\r\n    \"pais\": \"UK\",\r\n    \"direccion\" : \"Nacho Hita\",\r\n    \"sinopsis\" : \"skdoaskdoasdoiasodiasoidoisad\",\r\n    \"genero\" : \"Comedia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/peliculas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualiza una pelicula",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"1\",\r\n    \"titulo\": \"MI PELICULaaaaaA\",\r\n    \"anio\": \"2021\",\r\n    \"duracion\" : \"120\",\r\n    \"pais\": \"UK\",\r\n    \"direccion\" : \"Nacho Hita\",\r\n    \"sinopsis\" : \"skdoaskdoasdoiasodiasoidoisad\",\r\n    \"genero\" : \"Comedia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/peliculas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Elimina una pelicula por Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca pelicula por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Actores",
+			"item": [
+				{
+					"name": "Busca todos los actores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca actores por nacionalidad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores/nacionalidad/Frances",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								"nacionalidad",
+								"Frances"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca actores por nombr",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores/nombre/nacho",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								"nombre",
+								"nacho"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crea un nuevo actor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"MISTER ACTOR\",\r\n    \"nacionalidad\" : \"Marte\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/actores/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualiza un actor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"5\",\r\n    \"nombre\": \"OTRO CAMBIO\",\r\n    \"nacionalidad\" : \"HERE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/actores/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Elimina un actor por Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Peliculas - Actores",
+			"item": [
+				{
+					"name": "Busca todas las peliculas de un actor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/actor/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"actor",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca todos los actores de una pelicula",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores/pelicula/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								"pelicula",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

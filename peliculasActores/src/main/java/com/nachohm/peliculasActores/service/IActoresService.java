@@ -12,4 +12,6 @@ public interface IActoresService {
     void guardarActor(Actores actor);
     void actualizarActor(Actores actor);
     void eliminarActor(Integer id);
+    List<Actores> buscarActorPorPelicula(Integer id);
+
 }

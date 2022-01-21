@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IPeliculasServiceImpl implements IPeliculasService {
@@ -16,6 +17,11 @@ public class IPeliculasServiceImpl implements IPeliculasService {
     @Override
     public List<Pelicula> buscarTodasPeliculas() {
         return peliculasDAO.buscarTodas();
+    }
+
+    @Override
+    public Pelicula buscarPorId(Integer id) {
+        return peliculasDAO.buscarPorId(id);
     }
 
     @Override
@@ -43,4 +49,11 @@ public class IPeliculasServiceImpl implements IPeliculasService {
 
     @Override
     public void eliminarPelicula(Integer id) { peliculasDAO.eliminarPelicula(id); }
+
+    @Override
+    public List<Pelicula> buscarPeliculasPorActor(Integer id) {
+        System.out.println("buscarPeliculasPorActor");
+        List<Pelicula> lstPeliculas = peliculasDAO.buscarPeliculaPorActor(id);
+        return lstPeliculas;
+    }
 }

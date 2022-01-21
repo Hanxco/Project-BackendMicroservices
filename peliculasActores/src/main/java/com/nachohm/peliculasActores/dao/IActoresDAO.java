@@ -12,4 +12,6 @@ public interface IActoresDAO {
     void guardarActor(Actores actor);
     void actualizarActor(Actores actor);
     void eliminarActor(Integer id);
+
+    List<Actores> buscaActoresPorPeliculaId(Integer id);
 }

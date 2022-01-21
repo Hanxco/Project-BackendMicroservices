@@ -31,4 +31,7 @@ public class ActoresController {
 
     @DeleteMapping("/actores/{id}")
     public void eliminarActor(@PathVariable("id") Integer id) { actoresService.eliminarActor(id); }
+
+    @GetMapping("/actores/pelicula/{id}")
+    public List<Actores> buscarActoresPeliculaId(@PathVariable("id") Integer id) { return actoresService.buscarActorPorPelicula(id); }
 }

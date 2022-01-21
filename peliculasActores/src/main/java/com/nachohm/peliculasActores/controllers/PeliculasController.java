@@ -18,6 +18,9 @@ public class PeliculasController {
         return peliculasService.buscarTodasPeliculas();
     }
 
+    @GetMapping("/peliculas/{id}")
+    public Pelicula buscarPeliculaById(@PathVariable("id") Integer id) { return peliculasService.buscarPorId(id); }
+
     @GetMapping("/peliculas/titulo/{titulo}")
     public List<Pelicula> buscarPeliculaPorTitulo(@PathVariable("titulo") String titulo) { return peliculasService.buscarPorTitulo(titulo); }
 
@@ -41,4 +44,5 @@ public class PeliculasController {
 
     @DeleteMapping("/peliculas/{id}")
     public void eliminarPelicula(@PathVariable("id") Integer id) { peliculasService.eliminarPelicula(id); }
+
 }

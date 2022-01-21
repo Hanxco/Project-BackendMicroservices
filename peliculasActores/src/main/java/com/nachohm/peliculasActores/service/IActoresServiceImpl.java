@@ -33,4 +33,7 @@ public class IActoresServiceImpl implements IActoresService {
     @Override
     public void eliminarActor(Integer id) { actoresDAO.eliminarActor(id); }
 
+    @Override
+    public List<Actores> buscarActorPorPelicula(Integer id) { return actoresDAO.buscaActoresPorPeliculaId(id); }
+
 }

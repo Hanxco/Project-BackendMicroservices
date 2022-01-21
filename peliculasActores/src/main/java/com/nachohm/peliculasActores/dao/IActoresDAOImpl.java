@@ -1,9 +1,11 @@
 package com.nachohm.peliculasActores.dao;
 
 import com.nachohm.peliculasActores.models.Actores;
+import com.nachohm.peliculasActores.models.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -11,6 +13,8 @@ public class IActoresDAOImpl implements IActoresDAO {
 
     @Autowired
     IActoresJPA actoresJPA;
+    @Autowired
+    IPeliculasJPA peliculasJPA;
 
     @Override
     public List<Actores> buscarTodosActores() { return actoresJPA.findAll(); }
@@ -29,5 +33,10 @@ public class IActoresDAOImpl implements IActoresDAO {
 
     @Override
     public void eliminarActor(Integer id) { actoresJPA.deleteById(id); }
+
+    @Override
+    public List<Actores> buscaActoresPorPeliculaId(Integer id) {
+        return peliculasJPA.findById(id).get().getActoreses();
+    }
 
 }

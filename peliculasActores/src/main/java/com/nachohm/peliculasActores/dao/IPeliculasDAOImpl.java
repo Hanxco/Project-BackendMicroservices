@@ -1,10 +1,13 @@
 package com.nachohm.peliculasActores.dao;
 
+import com.nachohm.peliculasActores.models.Actores;
 import com.nachohm.peliculasActores.models.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class IPeliculasDAOImpl implements IPeliculasDAO {
@@ -13,8 +16,15 @@ public class IPeliculasDAOImpl implements IPeliculasDAO {
     IPeliculasJPA peliculasJPA;
 
     @Override
-    public List<Pelicula> buscarTodas() {
-        return peliculasJPA.findAll();
+    public List<Pelicula> buscarTodas() { return peliculasJPA.findAll(); }
+
+    @Override
+    public Pelicula buscarPorId(Integer id) {
+        Optional<Pelicula> pelicula = peliculasJPA.findById(id);
+        if (pelicula.isPresent()) {
+            return pelicula.get();
+        }
+        return null;
     }
 
     @Override
@@ -71,5 +81,18 @@ public class IPeliculasDAOImpl implements IPeliculasDAO {
     @Override
     public void eliminarPelicula(Integer id) { peliculasJPA.deleteById(id); }
 
+    @Override
+    public List<Pelicula> buscarPeliculaPorActor(Integer actorId) {
+        List<Pelicula> lstPeliculas = new ArrayList<Pelicula>();
+        for (Pelicula item : peliculasJPA.findAll()) {
+            for (Actores actor : item.getActoreses()) {
+                if (actor.getId().equals(actorId)) {
+                    lstPeliculas.add(item);
+                    item.setActoreses(null);
+                }
+            }
+        }
+        return lstPeliculas;
+    }
 
 }

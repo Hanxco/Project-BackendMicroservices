@@ -39,4 +39,13 @@ public class Actores {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Actores{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", nacionalidad='" + nacionalidad + '\'' +
+                '}';
+    }
 }

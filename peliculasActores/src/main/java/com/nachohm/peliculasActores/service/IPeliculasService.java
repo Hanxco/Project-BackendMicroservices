@@ -7,6 +7,7 @@ import java.util.List;
 public interface IPeliculasService {
 
     List<Pelicula> buscarTodasPeliculas();
+    Pelicula buscarPorId(Integer id);
     List<Pelicula> buscarPorTitulo(String titulo);
     List<Pelicula> buscarPorGenero(String genero);
     List<Pelicula> buscarPorAnio(Integer anio);
@@ -15,5 +16,6 @@ public interface IPeliculasService {
     void guardarPelicula(Pelicula pelicula);
     void actualizarPelicula(Pelicula pelicula);
     void eliminarPelicula(Integer id);
+    List<Pelicula> buscarPeliculasPorActor(Integer id);
 
 }

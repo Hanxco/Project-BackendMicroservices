@@ -18,6 +18,19 @@ CREATE SCHEMA IF NOT EXISTS `peliculasdb` DEFAULT CHARACTER SET utf8mb4 COLLATE 
 USE `peliculasdb` ;
 
 -- -----------------------------------------------------
+-- Table `peliculasdb`.`actores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `peliculasdb`.`actores` (
+  `idactores` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `nacionalidad` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`idactores`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `peliculasdb`.`peliculas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `peliculasdb`.`peliculas` (
@@ -36,16 +49,21 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `peliculasdb`.`actores`
+-- Table `peliculasdb`.`pelicula_actor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peliculasdb`.`actores` (
-  `idactores` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NULL DEFAULT NULL,
-  `nacionalidad` VARCHAR(45) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `peliculasdb`.`pelicula_actor` (
+  `idpeliculaActor` INT NOT NULL AUTO_INCREMENT,
+  `actores_idactores` INT NOT NULL,
   `peliculas_idPeliculas` INT NOT NULL,
-  PRIMARY KEY (`idactores`, `peliculas_idPeliculas`),
-  INDEX `fk_actores_peliculas_idx` (`peliculas_idPeliculas` ASC) VISIBLE,
-  CONSTRAINT `fk_actores_peliculas`
+  PRIMARY KEY (`idpeliculaActor`, `actores_idactores`, `peliculas_idPeliculas`),
+  INDEX `fk_peliculaactor_actores_idx` (`actores_idactores` ASC) VISIBLE,
+  INDEX `fk_peliculaactor_peliculas1_idx` (`peliculas_idPeliculas` ASC) VISIBLE,
+  CONSTRAINT `fk_peliculaactor_actores`
+    FOREIGN KEY (`actores_idactores`)
+    REFERENCES `peliculasdb`.`actores` (`idactores`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_peliculaactor_peliculas1`
     FOREIGN KEY (`peliculas_idPeliculas`)
     REFERENCES `peliculasdb`.`peliculas` (`idPeliculas`)
     ON DELETE NO ACTION
