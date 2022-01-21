@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `peliculasdb`.`actores` (
   `nacionalidad` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idactores`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -44,31 +45,29 @@ CREATE TABLE IF NOT EXISTS `peliculasdb`.`peliculas` (
   `genero` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idPeliculas`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `peliculasdb`.`pelicula_actor`
+-- Table `peliculasdb`.`peliculas_actor`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peliculasdb`.`pelicula_actor` (
-  `idpeliculaActor` INT NOT NULL AUTO_INCREMENT,
-  `actores_idactores` INT NOT NULL,
-  `peliculas_idPeliculas` INT NOT NULL,
-  PRIMARY KEY (`idpeliculaActor`, `actores_idactores`, `peliculas_idPeliculas`),
-  INDEX `fk_peliculaactor_actores_idx` (`actores_idactores` ASC) VISIBLE,
-  INDEX `fk_peliculaactor_peliculas1_idx` (`peliculas_idPeliculas` ASC) VISIBLE,
+CREATE TABLE IF NOT EXISTS `peliculasdb`.`peliculas_actor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `actoreses_idactores` INT NOT NULL,
+  `pelicula_id_peliculas` INT NOT NULL,
+  PRIMARY KEY (`id`, `actoreses_idactores`, `pelicula_id_peliculas`),
+  INDEX `fk_peliculaactor_actores_idx` (`actoreses_idactores` ASC) VISIBLE,
+  INDEX `fk_peliculaactor_peliculas1_idx` (`pelicula_id_peliculas` ASC) VISIBLE,
   CONSTRAINT `fk_peliculaactor_actores`
-    FOREIGN KEY (`actores_idactores`)
-    REFERENCES `peliculasdb`.`actores` (`idactores`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    FOREIGN KEY (`actoreses_idactores`)
+    REFERENCES `peliculasdb`.`actores` (`idactores`),
   CONSTRAINT `fk_peliculaactor_peliculas1`
-    FOREIGN KEY (`peliculas_idPeliculas`)
-    REFERENCES `peliculasdb`.`peliculas` (`idPeliculas`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    FOREIGN KEY (`pelicula_id_peliculas`)
+    REFERENCES `peliculasdb`.`peliculas` (`idPeliculas`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
