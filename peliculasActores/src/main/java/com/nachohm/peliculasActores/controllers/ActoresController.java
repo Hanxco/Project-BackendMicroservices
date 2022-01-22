@@ -17,6 +17,9 @@ public class ActoresController {
     @GetMapping("/actores")
     public List<Actores> buscarTodosActores() { return actoresService.buscarTodosActores(); }
 
+    @GetMapping("/actores/{id}")
+    public Actores buscarActorPorId(@PathVariable("id") Integer id) { return actoresService.buscarActorPorId(id); }
+
     @GetMapping("/actores/nacionalidad/{nacionalidad}")
     public List<Actores> buscarActorNacionalidad(@PathVariable("nacionalidad") String nacionalidad) { return actoresService.buscarActoresPorNacionalidad(nacionalidad); }
 
@@ -32,6 +35,4 @@ public class ActoresController {
     @DeleteMapping("/actores/{id}")
     public void eliminarActor(@PathVariable("id") Integer id) { actoresService.eliminarActor(id); }
 
-    @GetMapping("/actores/pelicula/{id}")
-    public List<Actores> buscarActoresPeliculaId(@PathVariable("id") Integer id) { return actoresService.buscarActorPorPelicula(id); }
 }

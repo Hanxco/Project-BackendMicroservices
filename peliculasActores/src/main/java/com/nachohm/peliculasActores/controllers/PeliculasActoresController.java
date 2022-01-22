@@ -1,11 +1,12 @@
 package com.nachohm.peliculasActores.controllers;
 
+import com.nachohm.peliculasActores.models.Actores;
 import com.nachohm.peliculasActores.models.Pelicula;
+import com.nachohm.peliculasActores.service.IActoresService;
+import com.nachohm.peliculasActores.service.IPeliculaActorService;
 import com.nachohm.peliculasActores.service.IPeliculasService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,10 +14,23 @@ import java.util.List;
 public class PeliculasActoresController {
 
     @Autowired
-    IPeliculasService peliculasService;
+    IPeliculaActorService peliculaActorService;
 
     @GetMapping("/peliculas/actor/{id}")
-    public List<Pelicula> buscarPeliculasPorActor(@PathVariable("id") Integer id) {
-        return peliculasService.buscarPeliculasPorActor(id);
+    public List<Pelicula> buscarPeliculasPorActor(@PathVariable("id") Integer id) { return peliculaActorService.buscarPeliculasPorActor(id); }
+
+    @GetMapping("/actores/pelicula/{id}")
+    public List<Actores> buscarActoresPeliculaId(@PathVariable("id") Integer id) { return peliculaActorService.buscarActorPorPelicula(id); }
+
+    @PutMapping("/peliculas/{peliculaId}/actor/{id}")
+    public void asignarActorPelicula(@PathVariable("peliculaId") Integer peliculaId,
+                                     @PathVariable("id") Integer id) {
+        peliculaActorService.asignarActorPelicula(peliculaId, id);
+    }
+
+    @DeleteMapping("/peliculas/{peliculaId}/actor/{id}")
+    public void borrarActorPelicula(@PathVariable("peliculaId") Integer peliculaId,
+                                    @PathVariable("id") Integer id) {
+        peliculaActorService.eliminarActorPelicula(peliculaId, id);
     }
 }

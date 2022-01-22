@@ -14,4 +14,6 @@ public interface IActoresDAO {
     void eliminarActor(Integer id);
 
     List<Actores> buscaActoresPorPeliculaId(Integer id);
+
+    Actores buscarActorPorId(Integer id);
 }

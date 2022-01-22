@@ -1,5 +1,6 @@
 package com.nachohm.peliculasActores.service;
 
+import com.nachohm.peliculasActores.dao.IActoresDAO;
 import com.nachohm.peliculasActores.dao.IPeliculasDAO;
 import com.nachohm.peliculasActores.models.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,5 @@ public class IPeliculasServiceImpl implements IPeliculasService {
     @Override
     public void eliminarPelicula(Integer id) { peliculasDAO.eliminarPelicula(id); }
 
-    @Override
-    public List<Pelicula> buscarPeliculasPorActor(Integer id) {
-        System.out.println("buscarPeliculasPorActor");
-        List<Pelicula> lstPeliculas = peliculasDAO.buscarPeliculaPorActor(id);
-        return lstPeliculas;
-    }
+
 }

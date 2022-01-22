@@ -14,9 +14,7 @@ public class PeliculasController {
     IPeliculasService peliculasService;
 
     @GetMapping("/peliculas")
-    public List<Pelicula> buscarTodasPeliculas() {
-        return peliculasService.buscarTodasPeliculas();
-    }
+    public List<Pelicula> buscarTodasPeliculas() { return peliculasService.buscarTodasPeliculas(); }
 
     @GetMapping("/peliculas/{id}")
     public Pelicula buscarPeliculaById(@PathVariable("id") Integer id) { return peliculasService.buscarPorId(id); }
