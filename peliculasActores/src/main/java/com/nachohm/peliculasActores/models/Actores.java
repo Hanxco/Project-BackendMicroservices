@@ -1,6 +1,9 @@
 package com.nachohm.peliculasActores.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "actores")
@@ -15,6 +18,18 @@ public class Actores {
 
     @Column(name = "nacionalidad", length = 45)
     private String nacionalidad;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Column(name = "fechaNacimiento")
+    private Date fechaNacimiento;
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     public String getNacionalidad() {
         return nacionalidad;
@@ -46,6 +61,7 @@ public class Actores {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", nacionalidad='" + nacionalidad + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
                 '}';
     }
 }

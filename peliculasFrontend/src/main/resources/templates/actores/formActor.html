@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Peliculas</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/menuStyle.css}" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1 id="logoFilm">FilmAffinit<strong>y</strong></h1>
+            <nav id="navbar">
+                <ul id="main-menu">
+                    <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
+                    <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
+                    <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
+                </ul>
+            </nav>
+            <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
+        </header>
+        <div class="row">
+            <div class="col-9">
+                <h1 class="display-6 ms-5" th:text="${titlePage}"></h1>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-primary" id="volver-listado-actores">Volver</button>
+            </div>
+        </div>
+        <div class="container p-5">
+            <form th:action="@{/actores/guardar/}" method="post" th:object="${actor}">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control hidden"  name="id" id="id-actor" th:value="${actorId}">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" th:field="*{nombre}" name="nombre" id="nombre-actor" th:value="${actor.nombre}" required>
+                    <label for="nombre-actor">Título</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" th:field="*{nacionalidad}" name="nacionalidad" id="nacionalidad-pelicula" th:value="${actor.nacionalidad}">
+                    <label for="nacionalidad-pelicula">Nacionalidad</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" th:field="*{fechaNacimiento}" name="fechaNacimiento" id="fechaNacimiento-pelicula" th:value="${actor.fechaNacimiento}">
+                    <label for="fechaNacimiento-pelicula">Fecha de nacimiento</label>
+                </div>
+                <button th:if="${mode} == 'edit'" type="button" class="btn btn-danger" id="eliminar-actor-btn">Eliminar registro</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/scriptEdit.js}"></script>
+
+</body>
+</html>

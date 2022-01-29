@@ -96,7 +96,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8001/peliculas/genero/comedia",
+							"raw": "http://localhost:8001/peliculas/duracion/80",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -104,8 +104,8 @@
 							"port": "8001",
 							"path": [
 								"peliculas",
-								"genero",
-								"comedia"
+								"duracion",
+								"80"
 							]
 						}
 					},
@@ -255,12 +255,32 @@
 					"response": []
 				},
 				{
+					"name": "Busca actor por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Busca actores por nacionalidad",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8001/actores/nacionalidad/Frances",
+							"raw": "http://localhost:8001/actores/nacionalidad/Australia",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -269,7 +289,28 @@
 							"path": [
 								"actores",
 								"nacionalidad",
-								"Frances"
+								"Australia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca actores por fecha nacimiento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores/fechaNacimiento/1980-01-01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								"fechaNacimiento",
+								"1980-01-01"
 							]
 						}
 					},
@@ -332,7 +373,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"5\",\r\n    \"nombre\": \"OTRO CAMBIO\",\r\n    \"nacionalidad\" : \"HERE\"\r\n}",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"nombre\": \"Bradley Cooper\",\r\n    \"nacionalidad\": \"Estados Unidos\",\r\n    \"fechaNacimiento\": \"1975-01-05\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -369,6 +410,27 @@
 							"path": [
 								"actores",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca actores por nacionalidad Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/actores/nacionalidad/Frances",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"actores",
+								"nacionalidad",
+								"Frances"
 							]
 						}
 					},
@@ -415,6 +477,50 @@
 							"path": [
 								"actores",
 								"pelicula",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asigna actor a una pelicula",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/3/actor/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"3",
+								"actor",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Elimina un actor de una pelicula",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/peliculas/2/actor/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"peliculas",
+								"2",
+								"actor",
 								"2"
 							]
 						}

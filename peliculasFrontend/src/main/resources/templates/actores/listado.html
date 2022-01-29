@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Peliculas</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/menuStyle.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1 id="logoFilm">FilmAffinit<strong>y</strong></h1>
+            <nav id="navbar">
+                <ul id="main-menu">
+                    <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
+                    <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
+                    <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
+                </ul>
+            </nav>
+            <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
+        </header>
+        <div class="row">
+            <div class="col-9">
+                <h1 class="display-6 ms-5">Listado de Actores</h1>
+            </div>
+            <div class="col-3">
+                <button id="nuevo-actor" type="button" class="btn btn-primary">Crear nuevo</button>
+            </div>
+        </div>
+        <section class="movies">
+            <table class="table table-hover m-5">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Nacionalidad</th>
+                    <th scope="col">Fecha de nacimiento</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="listado-actores-tr" th:each="actor : ${listadoActores}">
+                        <td class="hidden" th:text="${actor.id}"></td>
+                        <td th:text="${actor.nombre}"></td>
+                        <td th:text="${actor.nacionalidad}"></td>
+                        <td th:text="${actor.fechaNacimiento}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- Icons -->
+    <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none;">
+        <symbol id="close" viewBox="0 0 212.982 212.982">
+            <g>
+                <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M131.804,106.491l75.936-75.936c6.99-6.99,6.99-18.323,0-25.312   c-6.99-6.99-18.322-6.99-25.312,0l-75.937,75.937L30.554,5.242c-6.99-6.99-18.322-6.99-25.312,0c-6.989,6.99-6.989,18.323,0,25.312   l75.937,75.936L5.242,182.427c-6.989,6.99-6.989,18.323,0,25.312c6.99,6.99,18.322,6.99,25.312,0l75.937-75.937l75.937,75.937   c6.989,6.99,18.322,6.99,25.312,0c6.99-6.99,6.99-18.322,0-25.312L131.804,106.491z" fill="#525661"/>
+            </g>
+        </symbol>
+        <symbol id="ico-search">
+            <path fill-rule="evenodd" clip-rule="evenodd" fill="#363a47" d="M14.769,14.769c-0.342,0.342-0.896,0.342-1.237,0l-3.756-3.756
+                                                                        c-2.399,1.793-5.801,1.623-7.981-0.557c-2.392-2.392-2.392-6.271,0-8.663s6.271-2.392,8.662,0c2.18,2.181,2.35,5.583,0.557,7.981
+                                                                        l3.756,3.756C15.11,13.873,15.11,14.427,14.769,14.769z M9.219,3.032c-1.709-1.709-4.479-1.709-6.188,0
+                                                                        c-1.708,1.708-1.708,4.479,0,6.188c1.709,1.708,4.479,1.708,6.188,0C10.927,7.51,10.927,4.74,9.219,3.032z"/>
+        </symbol>
+    </svg>
+
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

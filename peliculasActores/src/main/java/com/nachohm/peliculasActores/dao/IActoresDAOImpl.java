@@ -1,10 +1,11 @@
 package com.nachohm.peliculasActores.dao;
 
 import com.nachohm.peliculasActores.models.Actores;
-import com.nachohm.peliculasActores.models.Pelicula;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,9 @@ public class IActoresDAOImpl implements IActoresDAO {
 
     @Override
     public List<Actores> buscarPorNacionalidad(String naciona) { return actoresJPA.findByNacionalidad(naciona); }
+
+    @Override
+    public List<Actores> buscarPorFechaNacimiento(Date fecha) { return actoresJPA.findByFechaNacimiento(fecha); }
 
     @Override
     public void guardarActor(Actores actor) { actoresJPA.save(actor); }

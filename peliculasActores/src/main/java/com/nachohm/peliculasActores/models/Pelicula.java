@@ -28,17 +28,28 @@ public class Pelicula {
     @Column(name = "direccion", length = 45)
     private String direccion;
 
-    @Column(name = "sinopsis", length = 45)
+    @Column(name = "sinopsis", length = 2500)
     private String sinopsis;
 
-    @Column(name = "genero", length = 45)
+    @Column(name = "genero", length = 250)
     private String genero;
+
+    @Column(name = "image")
+    private String image;
 
     @ManyToMany
     @JoinTable(name = "peliculas_actor",
             joinColumns = @JoinColumn(name = "pelicula_id_peliculas"),
             inverseJoinColumns = @JoinColumn(name = "actoreses_idactores"))
     private List<Actores> actoreses = new ArrayList<>();
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public List<Actores> getActoreses() {
         return actoreses;
@@ -136,6 +147,8 @@ public class Pelicula {
                 ", direccion='" + direccion + '\'' +
                 ", sinopsis='" + sinopsis + '\'' +
                 ", genero='" + genero + '\'' +
+                ", image='" + image + '\'' +
+                ", actoreses=" + actoreses +
                 '}';
     }
 }

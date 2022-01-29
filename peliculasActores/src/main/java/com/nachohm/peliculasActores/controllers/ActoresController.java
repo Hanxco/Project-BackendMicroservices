@@ -1,11 +1,13 @@
 package com.nachohm.peliculasActores.controllers;
 
 import com.nachohm.peliculasActores.models.Actores;
-import com.nachohm.peliculasActores.models.Pelicula;
 import com.nachohm.peliculasActores.service.IActoresService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,11 +28,24 @@ public class ActoresController {
     @GetMapping("/actores/nombre/{nombre}")
     public List<Actores> buscarActorNombre(@PathVariable("nombre") String nombre) { return actoresService.buscarActoresPorNombre(nombre); }
 
+    @GetMapping("/actores/fechaNacimiento/{fechaNac}")
+    public List<Actores> buscarActorNacimiento(@PathVariable("fechaNac") @DateTimeFormat(pattern = "yyyy-MM-dd") final Date fechaNac) {
+        return actoresService.buscarActoresPorFechaNac(fechaNac);
+    }
+
     @PostMapping("/actores")
-    public void guardarActor(@RequestBody Actores actor) { actoresService.guardarActor(actor); }
+    public void guardarActor(@RequestBody Actores actor) {
+        System.out.println("guardarActor actor");
+        System.out.println(actor);
+        actoresService.guardarActor(actor);
+    }
 
     @PutMapping("/actores")
-    public void actualizarActor(@RequestBody Actores actor) { actoresService.actualizarActor(actor); }
+    public void actualizarActor(@RequestBody Actores actor) {
+        System.out.println("actualizarActor actor");
+        System.out.println(actor);
+        actoresService.actualizarActor(actor);
+    }
 
     @DeleteMapping("/actores/{id}")
     public void eliminarActor(@PathVariable("id") Integer id) { actoresService.eliminarActor(id); }

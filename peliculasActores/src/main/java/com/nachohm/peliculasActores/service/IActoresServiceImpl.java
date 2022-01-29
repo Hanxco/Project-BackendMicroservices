@@ -5,6 +5,7 @@ import com.nachohm.peliculasActores.models.Actores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -35,6 +36,9 @@ public class IActoresServiceImpl implements IActoresService {
 
     @Override
     public void eliminarActor(Integer id) { actoresDAO.eliminarActor(id); }
+
+    @Override
+    public List<Actores> buscarActoresPorFechaNac(Date fechaNac) { return actoresDAO.buscarPorFechaNacimiento(fechaNac); }
 
 
 }
