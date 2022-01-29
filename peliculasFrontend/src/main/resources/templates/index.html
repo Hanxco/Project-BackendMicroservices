@@ -40,8 +40,7 @@
         <h5 class="ms-5 text-dark">Recomendaciones para ti</h5>
         <!-- Flickity HTML init -->
         <div class="gallery js-flickity"
-             data-flickity-options='{
-                                      "wrapAround": true }'>
+             data-flickity-options='{"wrapAround": true }'>
             <div th:each="pelicula : ${listadoPeliculas}" class="gallery-cell movies">
                 <div class="movie">
                     <img th:src="@{${pelicula.image}}" alt="" class="poster" />
@@ -53,12 +52,11 @@
                 </div>
             </div>
         </div>
-        <h5 class="ms-5 text-dark">Acción y aventuras</h5>
+        <h5 class="ms-5 text-dark mt-3">Acción y aventuras</h5>
         <!-- Flickity HTML init -->
         <div class="gallery js-flickity"
-             data-flickity-options='{
-                                      "wrapAround": true }'>
-            <div th:each="pelicula : ${listadoPeliculas}" class="gallery-cell movies">
+             data-flickity-options='{"groupCells": true }'>
+            <div th:each="pelicula : ${lstPelisAccion}" class="gallery-cell movies">
                 <div class="movie">
                     <img th:src="@{${pelicula.image}}" alt="" class="poster" />
                     <div class="title" th:text="${pelicula.titulo}"></div>

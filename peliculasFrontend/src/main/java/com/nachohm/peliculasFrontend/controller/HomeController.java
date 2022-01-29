@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -25,9 +27,11 @@ public class HomeController {
     public String home(Model model, @RequestParam(name="page", defaultValue="0") int page) {
         Pageable pageable = PageRequest.of(page, 15);
         Page<Peliculas> listPeliculas = peliculaService.buscarTodasPeliculas(pageable);
+        List<Peliculas> lstPelisAccion = peliculaService.buscarPeliculaGenero("Acción y Aventuras");
         PageRender<Peliculas> pageRender = new PageRender<Peliculas>("/peliculas/listado", listPeliculas);
         model.addAttribute("titulo","Listado de todas las peliculas");
         model.addAttribute("listadoPeliculas",listPeliculas);
+        model.addAttribute("lstPelisAccion",lstPelisAccion);
         model.addAttribute("page",pageRender);
         return"index";
     }

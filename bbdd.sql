@@ -24,9 +24,10 @@ CREATE TABLE IF NOT EXISTS `peliculasdb`.`actores` (
   `idactores` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NULL DEFAULT NULL,
   `nacionalidad` VARCHAR(45) NULL DEFAULT NULL,
+  `fechaNacimiento` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`idactores`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 19
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -41,11 +42,12 @@ CREATE TABLE IF NOT EXISTS `peliculasdb`.`peliculas` (
   `duracion` INT NULL DEFAULT NULL,
   `pais` VARCHAR(45) NULL DEFAULT NULL,
   `direccion` VARCHAR(45) NULL DEFAULT NULL,
-  `sinopsis` VARCHAR(45) NULL DEFAULT NULL,
-  `genero` VARCHAR(45) NULL DEFAULT NULL,
+  `sinopsis` VARCHAR(2500) NULL DEFAULT NULL,
+  `genero` VARCHAR(250) NULL DEFAULT NULL,
+  `image` VARCHAR(1500) NULL DEFAULT NULL,
   PRIMARY KEY (`idPeliculas`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 21
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -67,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `peliculasdb`.`peliculas_actor` (
     FOREIGN KEY (`pelicula_id_peliculas`)
     REFERENCES `peliculasdb`.`peliculas` (`idPeliculas`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
+AUTO_INCREMENT = 17
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
