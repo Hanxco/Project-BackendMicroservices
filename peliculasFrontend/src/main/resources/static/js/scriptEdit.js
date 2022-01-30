@@ -44,3 +44,27 @@ $('#eliminar-actor-btn').click(function(e) {
         console.log('error');
     });
 })
+
+$('#search-member-input').on('keyup', function() {
+    $('#table-searched').show();
+    var value = $(this).val();
+    var patt = new RegExp(value, "i");
+    $('#table-searched-group').find('li').each(function() {
+        var $table = $('#table-searched-group');
+        if (($(this).text().search(patt) >= 0)) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+
+$('.itemBuscador').click(function(e) {
+    let endpoint = 'http://localhost:8001/peliculas/' + $('#pelicula-id').val() + '/actor/' + $(this).attr('id').split('-')[1];
+    invokeAjax('PUT', endpoint).then(result => {
+        console.log(result);
+        $('#table-searched-group').hide();
+    }).catch((thrownError) => {
+        console.log('error');
+    });
+});

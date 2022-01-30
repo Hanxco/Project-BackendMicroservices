@@ -25,13 +25,15 @@ public class HomeController {
 
     @GetMapping(value = {"/", "/home", ""})
     public String home(Model model, @RequestParam(name="page", defaultValue="0") int page) {
-        Pageable pageable = PageRequest.of(page, 15);
-        Page<Peliculas> listPeliculas = peliculaService.buscarTodasPeliculas(pageable);
-        List<Peliculas> lstPelisAccion = peliculaService.buscarPeliculaGenero("Acción y Aventuras");
+        final Pageable pageable = PageRequest.of(page, 15);
+        final Page<Peliculas> listPeliculas = peliculaService.buscarTodasPeliculas(pageable);
+        final List<Peliculas> lstPelisAccion = peliculaService.buscarPeliculaGenero("Acción y Aventuras");
+        final List<Peliculas> lstPelis2009 = peliculaService.buscarPeliculaAnio(2009);
         PageRender<Peliculas> pageRender = new PageRender<Peliculas>("/peliculas/listado", listPeliculas);
         model.addAttribute("titulo","Listado de todas las peliculas");
         model.addAttribute("listadoPeliculas",listPeliculas);
         model.addAttribute("lstPelisAccion",lstPelisAccion);
+        model.addAttribute("lstPelis2009",lstPelis2009);
         model.addAttribute("page",pageRender);
         return"index";
     }

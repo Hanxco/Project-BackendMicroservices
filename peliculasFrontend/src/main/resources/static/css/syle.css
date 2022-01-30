@@ -118,7 +118,7 @@ header .search svg {
   font-size: 11px;
   opacity: 0.8;
 }
-.movie .desc {
+.movie .descripcion {
   display: none;
 }
 
@@ -169,7 +169,6 @@ header .search svg {
 .detail .title,
 .detail .info,
 .detail .desc,
-.detail .play,
 .detail .close {
   transform: translateX(-50px);
   opacity: 0;
@@ -194,27 +193,6 @@ header .search svg {
   font-size: 14px;
   line-height: 1.6;
 }
-.detail .play {
-  background: linear-gradient(90deg, #E4761F, #FF8B32);
-  border: none;
-  border-radius: 20px;
-  color: #fff;
-  font-size: 12px;
-  line-height: 1.5;
-  padding: 8px 17px;
-  margin: 30px 0 0 -2px;
-  text-transform: uppercase;
-  z-index: 10;
-  outline: none !important;
-  cursor: pointer;
-  opacity: 0;
-}
-.detail .play svg {
-  vertical-align: middle;
-  position: relative;
-  top: -2px;
-  margin-right: 3px;
-}
 
 .detail.ready::before {
   opacity: 1;
@@ -229,7 +207,6 @@ header .search svg {
 .detail.ready .title,
 .detail.ready .info,
 .detail.ready .desc,
-.detail.ready .play,
 .detail.ready .close {
   transform: translateX(0);
   opacity: 1;
@@ -244,9 +221,6 @@ header .search svg {
 }
 .detail.ready .desc {
   transition-delay: 0.4s;
-}
-.detail.ready .play {
-  transition-delay: 0.5s;
 }
 
 .the-most {
@@ -289,4 +263,6 @@ header .search svg {
   display: none;
 }
 
-/*# sourceMappingURL=style.css.map */
+.list-group-item .itemBuscador {
+  cursor: pointer;
+}

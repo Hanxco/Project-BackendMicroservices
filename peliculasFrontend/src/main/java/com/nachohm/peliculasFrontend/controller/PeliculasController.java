@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,7 @@ public class PeliculasController {
 
     @GetMapping("/listado")
     public String listadoPeliculas(Model model, @RequestParam(name="page", defaultValue="0") int page) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 20);
         Page<Peliculas> listPeliculas = peliculaService.buscarTodasPeliculas(pageable);
         PageRender<Peliculas> pageRender = new PageRender<Peliculas>("/peliculas/listado", listPeliculas);
         model.addAttribute("titulo","Listado de todas las peliculas");
@@ -48,10 +49,22 @@ public class PeliculasController {
     @GetMapping("/editar/{id}")
     public String editarPelicula(Model model, @PathVariable("id") Integer id) {
         final Peliculas peli = peliculaService.buscarPeliculaPorId(id);
+        final List<Actores> todosActores = actoresService.buscarListaActores();
         final List<Actores> lstActores = actoresService.buscarActoresPorPelicula(id);
+        List<Integer> idsActorSel = new ArrayList<>();
+        List<Actores> lstActorSearch = new ArrayList<Actores>();
+        for (Actores actor : lstActores) {
+            idsActorSel.add(actor.getId());
+        }
+        for (Actores actor : todosActores) {
+            if (!idsActorSel.contains(actor.getId())) {
+                lstActorSearch.add(actor);
+            }
+        }
         model.addAttribute("titlePage", "Editando película");
         model.addAttribute("pelicula", peli);
         model.addAttribute("lstActores", lstActores);
+        model.addAttribute("todosActores", lstActorSearch);
         model.addAttribute("methodForm", "PUT");
         model.addAttribute("mode", "edit");
         return "peliculas/formPelicula";
@@ -59,6 +72,7 @@ public class PeliculasController {
 
     @PostMapping("/guardar")
     public String crearPelicula(Model model, Peliculas peliculaObj, RedirectAttributes attributes) {
+        System.out.println("crearPelicula");
         peliculaService.guardarPelicula(peliculaObj);
         attributes.addFlashAttribute("msg", "Los datos del curso fueron guardados!");
         return "redirect:/peliculas/listado";
@@ -66,6 +80,7 @@ public class PeliculasController {
 
     @PutMapping("/guardar")
     public String modificarPelicula(Model model, Peliculas pelicula, RedirectAttributes attributes) {
+        System.out.println("modificarPelicula");
         peliculaService.guardarPelicula(pelicula);
         attributes.addFlashAttribute("msg", "Los datos del curso fueron guardados!");
         return "redirect:/peliculas/listado";

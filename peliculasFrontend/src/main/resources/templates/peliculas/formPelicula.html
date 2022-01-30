@@ -29,7 +29,7 @@
             <button type="button" class="btn btn-primary" id="volver-listado-peliculas">Volver</button>
         </div>
     </div>
-    <ul class="container pt-3 ps-5 pe-5">
+    <div class="container pt-3 ps-5 pe-5 pb-5">
         <form th:action="@{/peliculas/guardar/}" method="post" th:object="${pelicula}">
             <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
                 Por favor corrija los siguientes errores:
@@ -74,18 +74,23 @@
                 <input type="text" class="form-control" id="image" name="image" th:field="*{image}" th:value="${pelicula.image}">
                 <label for="image">Link image</label>
             </div>
-            <h6>Reparto actores</h6>
-            <form>
-                <div class="form-row">
-                    <div class="col">
-                        Añadir nuevo:
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Buscar ...">
+            <div th:if="${mode} == 'edit'" class="row">
+                <div class="col">
+                    <h6>Reparto actores</h6>
+                    <input class="form-control form-control-sm"
+                           type="text"
+                           id="search-member-input"
+                           placeholder="busca un usuario ...">
+                    <div id="table-searched" style="display: none; position: absolute; z-index: 2;">
+                        <div class="list-group" id="table-searched-group">
+                            <ul th:each="actor : ${todosActores}">
+                                <li class="list-group-item itemBuscador" th:id="${'itemsearch-' + actor.id}" th:text="${actor.nombre}"></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </form>
-            <ul class="list-group mt-3">
+            </div>
+            <ul th:if="${mode} == 'edit'" class="list-group mt-3">
                 <li class="list-group-item" th:each="actor : ${lstActores}">
                     <div class="table-responsive">
                         <table>

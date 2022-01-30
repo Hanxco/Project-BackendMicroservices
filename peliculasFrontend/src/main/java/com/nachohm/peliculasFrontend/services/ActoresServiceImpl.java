@@ -25,10 +25,6 @@ public class ActoresServiceImpl implements IActoresService {
     public Page<Actores> buscarTodosActores(Pageable pageable) {
         Actores[] actores = template.getForObject(url, Actores[].class);
         List<Actores> actorList = Arrays.asList(actores);
-        System.out.println(actores);
-        System.out.println("actorList");
-        System.out.println(actorList);
-
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
@@ -43,6 +39,13 @@ public class ActoresServiceImpl implements IActoresService {
 
         Page<Actores> page = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), actorList.size());
         return page;
+    }
+
+    @Override
+    public List<Actores> buscarListaActores() {
+        Actores[] actores = template.getForObject(url, Actores[].class);
+        List<Actores> actorList = Arrays.asList(actores);
+        return actorList;
     }
 
     @Override

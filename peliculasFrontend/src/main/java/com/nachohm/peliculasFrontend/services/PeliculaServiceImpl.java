@@ -56,6 +56,13 @@ public class PeliculaServiceImpl implements IPeliculaService {
     }
 
     @Override
+    public List<Peliculas> buscarPeliculaAnio(Integer year) {
+        Peliculas[] peliculas = template.getForObject(url + "/anio/" + year, Peliculas[].class);
+        List<Peliculas> pelisList = Arrays.asList(peliculas);
+        return pelisList;
+    }
+
+    @Override
     public void guardarPelicula(Peliculas pelicula) {
         if (pelicula.getId() != null && pelicula.getId() > 0) {
             template.put(url, pelicula);

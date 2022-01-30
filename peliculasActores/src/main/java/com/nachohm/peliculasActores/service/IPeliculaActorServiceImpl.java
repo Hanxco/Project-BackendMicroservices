@@ -4,6 +4,8 @@ import com.nachohm.peliculasActores.dao.IActoresDAO;
 import com.nachohm.peliculasActores.dao.IPeliculasDAO;
 import com.nachohm.peliculasActores.models.Actores;
 import com.nachohm.peliculasActores.models.Pelicula;
+import com.nachohm.peliculasActores.types.CustomLabel_ES;
+import com.nachohm.peliculasActores.wrappers.ServiceAndSaveResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +22,22 @@ public class IPeliculaActorServiceImpl implements IPeliculaActorService {
     IActoresDAO actoresDAO;
 
     @Override
-    public void asignarActorPelicula(Integer peliculaId, Integer actorId) {
+    public ServiceAndSaveResponse asignarActorPelicula(Integer peliculaId, Integer actorId) {
         Pelicula pelicula = peliculasDAO.buscarPorId(peliculaId);
         Actores actor = actoresDAO.buscarActorPorId(actorId);
-        List<Actores> lstActores = pelicula.getActoreses();
-        lstActores.add(actor);
-        pelicula.setActoreses(lstActores);
-        peliculasDAO.guardarPelicula(pelicula);
+        ServiceAndSaveResponse service = new ServiceAndSaveResponse();
+        if (actor == null) {
+            service.setCode(400);
+            service.setMessage(CustomLabel_ES.asignarActor_error_actor_not_found);
+        } else {
+            service.setCode(200);
+            service.setMessage(CustomLabel_ES.asignarActor_sucess);
+            List<Actores> lstActores = pelicula.getActoreses();
+            lstActores.add(actor);
+            pelicula.setActoreses(lstActores);
+            peliculasDAO.guardarPelicula(pelicula);
+        }
+        return service;
     }
 
     @Override

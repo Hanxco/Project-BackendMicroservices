@@ -13,6 +13,8 @@ public interface IPeliculaService {
 
     List<Peliculas> buscarPeliculaGenero(String genero);
 
+    List<Peliculas> buscarPeliculaAnio(Integer year);
+
     void guardarPelicula(Peliculas pelicula);
 
     void eliminarPelicula(Integer id);
