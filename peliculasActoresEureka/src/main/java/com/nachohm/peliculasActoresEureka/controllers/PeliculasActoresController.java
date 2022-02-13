@@ -5,7 +5,7 @@ import com.nachohm.peliculasActoresEureka.models.Pelicula;
 import com.nachohm.peliculasActoresEureka.service.IActoresService;
 import com.nachohm.peliculasActoresEureka.service.IPeliculaActorService;
 import com.nachohm.peliculasActoresEureka.service.IPeliculasService;
-import com.nachohm.peliculasActores.wrappers.ServiceAndSaveResponse;
+import com.nachohm.peliculasActoresEureka.wrappers.ServiceAndSaveResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
