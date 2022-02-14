@@ -37,7 +37,6 @@ $('#eliminar-pelicula-btn').click(function(e) {
 
 $('#eliminar-actor-btn').click(function(e) {
     const endp = '/actores/eliminar/' + $('#id-actor').val();
-    console.log("endp => " + endp);
     invokeAjax('GET', endp).then(result => {
         location.href = "/actores/listado";
     }).catch((thrownError) => {

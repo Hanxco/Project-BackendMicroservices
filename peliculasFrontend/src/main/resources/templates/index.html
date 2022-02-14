@@ -20,7 +20,13 @@
                     <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
                 </ul>
             </nav>
-            <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
+            <div class="search">
+                <input class="btn btn-primary"
+                       type="button"
+                       id="logout-btn"
+                       name="logout-btn"
+                       value="Cerrar sesión">
+            </div>
         </header>
         <h3 class="ms-5 text-dark">Las más destacadas</h3>
         <!-- Flickity HTML init -->
@@ -101,6 +107,7 @@
     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/ajaxUtils.js}"></script>
     <script th:src="@{/js/flickity.pkgd.min.js}"></script>
 
 </body>

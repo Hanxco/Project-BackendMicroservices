@@ -100,3 +100,11 @@ $('.listado-actores-tr').click(function(e) {
 $('#nuevo-actor').click(function(e) {
     location.href = "/actores/crear";
 })
+
+$('#logout-btn').click(function(e) {
+    location.href = "/logout";
+})
+
+$('#registro-btn').click(function(e) {
+    location.href = "/usuarios/registrar";
+})

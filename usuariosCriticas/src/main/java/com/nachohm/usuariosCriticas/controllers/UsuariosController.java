@@ -31,6 +31,9 @@ public class UsuariosController {
 
     @GetMapping("/usuarios/login/{correo}/{clave}")
     public Usuario buscarUsuarioPorCorreoConClave(@PathVariable("correo") String correo, @PathVariable("clave") String clave) {
+        System.out.println("buscarUsuarioPorCorreoConClave");
+        System.out.println("correo => " + correo);
+        System.out.println("clave => " + clave);
         return usuariosService.buscarUsuarioPorCorreoClave(correo, clave);
     }
 
