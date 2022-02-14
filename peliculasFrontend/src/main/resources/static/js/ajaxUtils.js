@@ -13,3 +13,20 @@ function invokeAjax(method, endpoint) {
         });
     });
 }
+
+function invokeAjaxPost(endpoint, data) {
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            type : 'POST',
+            url : endpoint,
+            data: data,
+            success : function(result) {
+                resolve();
+            },
+            error : function(thrownError) {
+                reject(thrownError);
+            },
+            dataType: 'json'
+        });
+    });
+}

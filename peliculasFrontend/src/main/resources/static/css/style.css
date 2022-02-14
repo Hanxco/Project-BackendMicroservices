@@ -97,7 +97,6 @@ header .search svg {
 
 .movie {
   padding: 10px;
-  cursor: pointer;
 }
 .movie .poster {
   width: 150px;
@@ -206,7 +205,6 @@ header .search svg {
   text-transform: uppercase;
   z-index: 10;
   outline: none !important;
-  cursor: pointer;
   opacity: 0;
 }
 .detail .play svg {

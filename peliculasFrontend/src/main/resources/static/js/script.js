@@ -3,7 +3,10 @@ var $play = $('.play'),
     $movie = $('.movie', $detail),
     $close = $('.close');
 
-$('.movies .movie').click(function(){
+$('.movies .movie').click(function() {
+    console.log('abriendo movie');
+    let movieId = $(this).find(">:first-child").text();
+    console.log(movieId);
     $movie.html($(this).html());
     $play.appendTo($movie);
 
@@ -108,3 +111,26 @@ $('#logout-btn').click(function(e) {
 $('#registro-btn').click(function(e) {
     location.href = "/usuarios/registrar";
 })
+
+function changeSelect(obj, peliculaId) {
+    $('input#selected-rating-' + peliculaId).val(obj.value);
+}
+
+function onRating(peliculaId) {
+    var valueRating = $('input#selected-rating-' + peliculaId).val();
+    console.log(valueRating);
+    var data = {
+        'peliculaId' : peliculaId,
+        'valoracion' : 'skskksd',
+        'nota' : valueRating,
+        'fecha' : '2022-01-02'
+    };
+    console.log(data);
+    const endp = '/criticas/1';
+    invokeAjax(endp, data).then(result => {
+        console.log(result);
+        location.href = "/";
+    }).catch((thrownError) => {
+        console.log('error');
+    });
+}

@@ -16,8 +16,10 @@
             <nav id="navbar">
                 <ul id="main-menu">
                     <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
+                    <li><a href="/usuarios/listado"><i class="fas fa-user"></i>Usuarios</a></li>
                     <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
                     <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
+                    <li><a href="/criticas/listado"><i class="fas fa-star"></i>Criticas</a></li>
                 </ul>
             </nav>
             <div class="search">
@@ -39,6 +41,31 @@
                     <span class="length" th:text="${pelicula.duracion} + 'min.'"></span>
                     <div class="genero" th:text="${pelicula.genero}"></div>
                     <div class="descripcion" th:text="${pelicula.sinopsis}"></div>
+                    <div class="rating mt-3 p-3">
+                        <h1 class="display-6">Valora esta película</h1><i class="fas fa-star"></i>
+                        <small class="text-muted">Tu opinión cuenta</small>
+                        <select class="form-select form-select-lg mb-3 mt-3"
+                                th:onchange="'javascript:changeSelect(this,' + ${pelicula.id} + ')'"
+                                aria-label="Rating select">
+                            <option >Elige una opción del listado</option>
+                            <option value="1">1 - Muy mala</option>
+                            <option value="2">2 - Bastante mala</option>
+                            <option value="3">3 - Mala</option>
+                            <option value="4">4 - Regular</option>
+                            <option value="5">5 - Pasable</option>
+                            <option value="6">6 - Aceptable</option>
+                            <option value="7">7 - Buena</option>
+                            <option value="8">8 - Bastante buena</option>
+                            <option value="9">9 - Muy buena</option>
+                            <option value="10">10 - Excelente</option>
+                        </select>
+                        <input type="text" th:id="'selected-rating-' + ${pelicula.id}" name="selected-rating" hidden/>
+                        <div class="d-grid gap-2">
+                            <input type="button" class="btn btn-warning btn-lg rating-btn" id="rating-btn"
+                                   th:onclick="'javascript:onRating(' + ${pelicula.id} + ')'"
+                                   value="Valorar ahora" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

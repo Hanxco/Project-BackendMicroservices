@@ -61,7 +61,6 @@ $('#search-member-input').on('keyup', function() {
 $('.itemBuscador').click(function(e) {
     let endpoint = 'http://localhost:8001/peliculas/' + $('#pelicula-id').val() + '/actor/' + $(this).attr('id').split('-')[1];
     invokeAjax('PUT', endpoint).then(result => {
-        console.log(result);
         $('#table-searched-group').hide();
     }).catch((thrownError) => {
         console.log('error');

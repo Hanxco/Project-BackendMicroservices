@@ -105,7 +105,6 @@ header {
 
 .movie {
   padding: 10px;
-  cursor: pointer;
 
   .poster {
     width: 150px;
@@ -218,21 +217,6 @@ header {
     font-size: 14px;
     line-height: 1.6;
   }
-
-  .play {
-    background: linear-gradient(90deg, #E4761F, #FF8B32);
-    border: none;
-    border-radius: 20px;
-    color: #fff;
-    font-size: 12px;
-    line-height: 1.5;
-    padding: 8px 17px;
-    margin: 30px 0 0 -2px;
-    text-transform: uppercase;
-    z-index: 10;
-    outline: none !important;
-    cursor: pointer;
-    opacity: 0;
 
     svg {
       vertical-align: middle;

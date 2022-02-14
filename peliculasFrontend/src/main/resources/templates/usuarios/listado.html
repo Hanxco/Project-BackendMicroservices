@@ -25,34 +25,41 @@
         </header>
         <div class="row">
             <div class="col-9">
-                <h1 class="display-6 ms-5">Listado de Peliculas</h1>
-            </div>
-            <div class="col-3">
-                <button id="nueva-pelicula" type="button" class="btn btn-primary">Crear nueva</button>
+                <h1 class="display-6 ms-5">Listado de Usuarios</h1>
             </div>
         </div>
         <section class="movies">
             <table class="table table-hover m-5">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">Titulo</th>
-                    <th scope="col">Año</th>
-                    <th scope="col">Duración</th>
-                    <th scope="col">País</th>
-                    <th scope="col">Director</th>
-                    <th scope="col">Genero</th>
+                    <th scope="col">Identificador</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Clave</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr class="listado-peliculas-tr" th:each="pelicula : ${listadoPeliculas}">
-                        <td class="td-pelicula-id" style="display: none;" th:text="${pelicula.id}"></td>
-                        <td th:text="${pelicula.titulo}"></td>
-                        <td th:text="${pelicula.anio}"></td>
-                        <td th:text="${pelicula.duracion}"></td>
-                        <td th:text="${pelicula.pais}"></td>
-                        <td th:text="${pelicula.direccion}"></td>
-                        <td th:text="${pelicula.genero}"></td>
-                    </tr>
+                <tr th:each="usuario : ${listadoUsuarios}">
+                    <td> <a th:href="@{/ver/} + ${usuario.id}" th:text="${usuario.id}"></a></td>
+                    <td th:text="${usuario.username}"></td>
+                    <td th:text="${usuario.password}"></td>
+                    <td th:text="${usuario.correo}"></td>
+                    <td>
+                        <table>
+                            <tbody>
+                            <tr th:each="rol: ${usuario.roles}">
+                                <td th:text="${rol.authority}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/usuarios/editar/{id}  (id=${usuario.id})  }" th:text="'editar'" class="btn btn-success btn-sm" role="button" title="Editar el usuario."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                        <a th:href="@{/usuarios/borrar/{id}  (id=${usuario.id})   }" th:text="'borrar'" onclick="return confirm('¿Estas seguro?')" class="btn btn-danger btn-sm" role="button" title="Eliminar el usuario."><i class="fas fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+
                 </tbody>
             </table>
         </section>
