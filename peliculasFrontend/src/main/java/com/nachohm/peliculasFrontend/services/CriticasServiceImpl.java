@@ -1,7 +1,6 @@
 package com.nachohm.peliculasFrontend.services;
 
 import com.nachohm.peliculasFrontend.models.Criticas;
-import com.nachohm.peliculasFrontend.models.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -41,5 +40,21 @@ public class CriticasServiceImpl implements ICriticasService {
 
         Page<Criticas> page = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), criticasList.size());
         return page;
+    }
+
+    @Override
+    public Criticas buscarPorId(Integer id) {
+        Criticas critica = template.getForObject(url + id, Criticas.class);
+        return critica;
+    }
+
+    @Override
+    public void actualizarCritica(Criticas critica) {
+        template.put(url, critica, String.class);
+    }
+
+    @Override
+    public void eliminarCritica(Integer id) {
+        template.delete(url + "/" + id);
     }
 }

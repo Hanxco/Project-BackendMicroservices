@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+
 <head>
     <meta charset="UTF-8">
     <title>Peliculas</title>
@@ -10,29 +12,41 @@
 </head>
 <body>
     <div class="app">
-        <header>
-            <h1 id="logoFilm">Filmopini<strong>o</strong>n</h1>
-            <nav id="navbar">
-                <ul id="main-menu">
-                    <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
-                    <li><a href="/usuarios/listado"><i class="fas fa-user"></i>Usuarios</a></li>
-                    <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
-                    <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
-                    <li><a href="/criticas/listado"><i class="fas fa-star"></i>Criticas</a></li>
-                </ul>
-            </nav>
-            <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
-        </header>
+        <div th:insert="fragments/menu :: menu-header"></div>
         <div class="row">
             <div class="col-9">
                 <h1 class="display-6 ms-5">Listado de Peliculas</h1>
             </div>
-            <div class="col-3">
-                <button id="nueva-pelicula" type="button" class="btn btn-primary">Crear nueva</button>
+        </div>
+        <div class="row justify-content-md-center mt-4">
+            <div class="col col-lg-2">
+                <h4>Buscador</h4>
+            </div>
+            <div class="col-md-auto">
+                <div class="input-group input-group-lg">
+                    <input type="text"
+                           id="search-element"
+                           class="form-control"
+                           aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-lg">
+                    <div class="mt-5" id="table-searched" style="display: none; position: absolute; z-index: 2;">
+                        <div class="list-group" id="table-searched-group">
+                            <ul style="padding-left: 0rem; margin-bottom: 0px;" th:each="pelicula : ${listadoPeliculas}">
+                                <li class="list-group-item itemBuscador" th:id="${'itemsearch-' + pelicula.id}" th:text="${pelicula.titulo}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="col col-lg-2 ms-5">
+                    <button id="nueva-pelicula" type="button" class="btn btn-primary">Crear nueva</button>
+                </div>
             </div>
         </div>
-        <section class="movies">
-            <table class="table table-hover m-5">
+
+        <section class="listado-container p-3">
+            <table class="table table-hover">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col">Titulo</th>

@@ -5,6 +5,7 @@ import com.nachohm.peliculasFrontend.models.Peliculas;
 import com.nachohm.peliculasFrontend.paginator.PageRender;
 import com.nachohm.peliculasFrontend.services.IActoresService;
 import com.nachohm.peliculasFrontend.services.IPeliculaService;
+import com.nachohm.peliculasFrontend.types.SystemLabels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -34,20 +36,25 @@ public class PeliculasController {
         model.addAttribute("titulo","Listado de todas las peliculas");
         model.addAttribute("listadoPeliculas",listPeliculas);
         model.addAttribute("page",pageRender);
-        return"peliculas/listado";
+        return SystemLabels.PeliculasListado;
     }
 
     @GetMapping("/crear")
     public String crearPelicula(Model model, @RequestParam(name="page", defaultValue="0") int page) {
-        model.addAttribute("titlePage", "Crear una nueva película");
-        model.addAttribute("pelicula", new Peliculas());
-        model.addAttribute("methodForm", "POST");
-        model.addAttribute("mode", "create");
-        return "peliculas/formPelicula";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.FormPeliculas);
+        if (session.getPermission()) {
+            model.addAttribute("titlePage", "Crear una nueva película");
+            model.addAttribute("pelicula", new Peliculas());
+            model.addAttribute("methodForm", "POST");
+            model.addAttribute("mode", "create");
+        }
+        return session.getUri();
     }
 
     @GetMapping("/editar/{id}")
     public String editarPelicula(Model model, @PathVariable("id") Integer id) {
+        MiddlewareSession session = new MiddlewareSession();
+        final String title = session.hasRole(SystemLabels.ROLE_ADMIN) ? "Editando película" : "Ficha de la película";
         final Peliculas peli = peliculaService.buscarPeliculaPorId(id);
         final List<Actores> todosActores = actoresService.buscarListaActores();
         final List<Actores> lstActores = actoresService.buscarActoresPorPelicula(id);
@@ -61,36 +68,43 @@ public class PeliculasController {
                 lstActorSearch.add(actor);
             }
         }
-        model.addAttribute("titlePage", "Editando película");
+        model.addAttribute("titlePage", title);
         model.addAttribute("pelicula", peli);
         model.addAttribute("lstActores", lstActores);
         model.addAttribute("todosActores", lstActorSearch);
         model.addAttribute("methodForm", "PUT");
         model.addAttribute("mode", "edit");
-        return "peliculas/formPelicula";
+        return SystemLabels.FormPeliculas;
     }
 
     @PostMapping("/guardar")
     public String crearPelicula(Model model, Peliculas peliculaObj, RedirectAttributes attributes) {
-        System.out.println("crearPelicula");
-        peliculaService.guardarPelicula(peliculaObj);
-        attributes.addFlashAttribute("msg", "Los datos del curso fueron guardados!");
-        return "redirect:/peliculas/listado";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.PeliculasListado, true);
+        if (session.getPermission()) {
+            peliculaService.guardarPelicula(peliculaObj);
+            attributes.addFlashAttribute("msg", "Los datos del curso fueron guardados!");
+        }
+        return session.getUri();
     }
 
     @PutMapping("/guardar")
     public String modificarPelicula(Model model, Peliculas pelicula, RedirectAttributes attributes) {
-        System.out.println("modificarPelicula");
-        peliculaService.guardarPelicula(pelicula);
-        attributes.addFlashAttribute("msg", "Los datos del curso fueron guardados!");
-        return "redirect:/peliculas/listado";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.PeliculasListado, true);
+        if (session.getPermission()) {
+            peliculaService.guardarPelicula(pelicula);
+            attributes.addFlashAttribute("msg", "Los datos del curso fueron guardados!");
+        }
+        return session.getUri();
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarPelicula(Model model, @PathVariable("id") Integer id, RedirectAttributes attributes) {
-        peliculaService.eliminarPelicula(id);
-        attributes.addFlashAttribute("msg", "La pelicula ha sido borrada!");
-        return "redirect:/peliculas/listado";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.PeliculasListado, true);
+        if (session.getPermission()) {
+            peliculaService.eliminarPelicula(id);
+            attributes.addFlashAttribute("msg", "La pelicula ha sido borrada!");
+        }
+        return session.getUri();
     }
 
 

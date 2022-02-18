@@ -10,6 +10,7 @@ public class Usuario {
     private String correo;
     private Boolean enable = false;
     private List<Rol> roles;
+    private List<Criticas> criticas;
 
     public Boolean getEnable() {
         return enable;
@@ -59,6 +60,14 @@ public class Usuario {
         this.roles = roles;
     }
 
+    public List<Criticas> getCriticas() {
+        return criticas;
+    }
+
+    public void setCriticas(List<Criticas> criticas) {
+        this.criticas = criticas;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -68,6 +77,7 @@ public class Usuario {
                 ", correo='" + correo + '\'' +
                 ", enable=" + enable +
                 ", roles=" + roles +
+                ", criticas=" + criticas +
                 '}';
     }
 }

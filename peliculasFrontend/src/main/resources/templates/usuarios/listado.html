@@ -10,38 +10,25 @@
 </head>
 <body>
     <div class="app">
-        <header>
-            <h1 id="logoFilm">Filmopini<strong>o</strong>n</h1>
-            <nav id="navbar">
-                <ul id="main-menu">
-                    <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
-                    <li><a href="/usuarios/listado"><i class="fas fa-user"></i>Usuarios</a></li>
-                    <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
-                    <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
-                    <li><a href="/criticas/listado"><i class="fas fa-star"></i>Criticas</a></li>
-                </ul>
-            </nav>
-            <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
-        </header>
+        <div th:insert="fragments/menu :: menu-header"></div>
         <div class="row">
             <div class="col-9">
                 <h1 class="display-6 ms-5">Listado de Usuarios</h1>
             </div>
         </div>
-        <section class="movies">
-            <table class="table table-hover m-5">
+        <section class="listado-container p-3">
+            <table class="table table-hover">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">Identificador</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Clave</th>
+                    <th scope="col">Contraseña</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Rol</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="usuario : ${listadoUsuarios}">
-                    <td> <a th:href="@{/ver/} + ${usuario.id}" th:text="${usuario.id}"></a></td>
+                <tr class="listado-usuarios-tr" th:each="usuario : ${listadoUsuarios}">
+                    <td style="display: none;" th:text="${usuario.id}"></td>
                     <td th:text="${usuario.username}"></td>
                     <td th:text="${usuario.password}"></td>
                     <td th:text="${usuario.correo}"></td>
@@ -53,10 +40,6 @@
                             </tr>
                             </tbody>
                         </table>
-                    </td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{/usuarios/editar/{id}  (id=${usuario.id})  }" th:text="'editar'" class="btn btn-success btn-sm" role="button" title="Editar el usuario."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
-                        <a th:href="@{/usuarios/borrar/{id}  (id=${usuario.id})   }" th:text="'borrar'" onclick="return confirm('¿Estas seguro?')" class="btn btn-danger btn-sm" role="button" title="Eliminar el usuario."><i class="fas fa-trash" aria-hidden="true"></i></a>
                     </td>
                 </tr>
 

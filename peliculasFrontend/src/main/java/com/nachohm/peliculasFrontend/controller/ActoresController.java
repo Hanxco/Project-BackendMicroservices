@@ -1,8 +1,10 @@
 package com.nachohm.peliculasFrontend.controller;
 
+import com.nachohm.peliculasFrontend.helpers.MethodAuxiliars;
 import com.nachohm.peliculasFrontend.models.Actores;
 import com.nachohm.peliculasFrontend.paginator.PageRender;
 import com.nachohm.peliculasFrontend.services.IActoresService;
+import com.nachohm.peliculasFrontend.types.SystemLabels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,48 +36,62 @@ public class ActoresController {
         model.addAttribute("titulo","Listado de todas las peliculas");
         model.addAttribute("listadoActores",listActores);
         model.addAttribute("page",pageRender);
-        return"actores/listado";
+        return SystemLabels.ActoresListado;
     }
 
     @GetMapping("/crear")
     public String crearActor(Model model, @RequestParam(name="page", defaultValue="0") int page) {
-        model.addAttribute("titlePage", "Crear una nuevo actor/a");
-        model.addAttribute("actor", new Actores());
-        model.addAttribute("methodForm", "POST");
-        model.addAttribute("mode", "create");
-        return "actores/formActor";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.FormActores);
+        if (session.getPermission()) {
+            model.addAttribute("titlePage", "Crear una nuevo actor/a");
+            model.addAttribute("actor", new Actores());
+            model.addAttribute("methodForm", "POST");
+            model.addAttribute("mode", "create");
+        }
+        return session.getUri();
     }
 
     @GetMapping("/editar/{id}")
     public String editarActores(Model model, @PathVariable("id") Integer id) {
+        MiddlewareSession session = new MiddlewareSession();
         Actores actor = actoresService.buscarActorPorId(id);
-        model.addAttribute("titlePage", "Editando actor");
+        final String title = session.hasRole(SystemLabels.ROLE_ADMIN) ? "Editando actor/actriz" : "Ficha del actor/actriz";
+        model.addAttribute("titlePage", title);
         model.addAttribute("actor", actor);
         model.addAttribute("actorId", id);
         model.addAttribute("methodForm", "PUT");
         model.addAttribute("mode", "edit");
-        return "actores/formActor";
+        return SystemLabels.FormActores;
     }
 
     @PostMapping("/guardar")
     public String crearActores(Model model, Actores actorObj, RedirectAttributes attributes) throws ParseException {
-        actoresService.guardarActor(actorObj);
-        attributes.addFlashAttribute("msg", "El registro se ha guardado!");
-        return "redirect:/actores/listado";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.ActoresListado, true);
+        if (session.getPermission()) {
+            actoresService.guardarActor(actorObj);
+            attributes.addFlashAttribute("msg", "El registro se ha guardado!");
+        }
+        return session.getUri();
     }
 
     @PutMapping("/guardar")
     public String modificarActores(Model model, Actores actorObj, RedirectAttributes attributes) {
-        actoresService.guardarActor(actorObj);
-        attributes.addFlashAttribute("msg", "Se ha guardado el registro!");
-        return "redirect:/actores/listado";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.ActoresListado, true);
+        if (session.getPermission()) {
+            actoresService.guardarActor(actorObj);
+            attributes.addFlashAttribute("msg", "Se ha guardado el registro!");
+        }
+        return session.getUri();
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarActores(Model model, @PathVariable("id") Integer id, RedirectAttributes attributes) {
-        actoresService.eliminarActor(id);
-        attributes.addFlashAttribute("msg", "El actor/a ha sido borrada!");
-        return "redirect:/actores/listado";
+        final MiddlewareSession session = new MiddlewareSession(SystemLabels.ROLE_ADMIN, SystemLabels.ActoresListado, true);
+        if (session.getPermission()) {
+            actoresService.eliminarActor(id);
+            attributes.addFlashAttribute("msg", "El actor/a ha sido borrada!");
+        }
+        return session.getUri();
     }
 
 

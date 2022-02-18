@@ -183,6 +183,18 @@ header {
     transition: all .5s cubic-bezier(.67,.13,.1,.81);
   }
 
+  .acteres {
+    position: absolute;
+    z-index: 2;
+    top: 27%;
+    left: 3%;
+    padding: 3%;
+    height: 20%;
+    border-radius: 5px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .2);
+    //opacity: 0;
+    transition: all .5s cubic-bezier(.67,.13,.1,.81);
+  }
 
   .title,
   .info,
@@ -224,7 +236,6 @@ header {
       top: -2px;
       margin-right: 3px;
     }
-  }
 }
 
 .detail.ready {

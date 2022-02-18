@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:9000")
 public class PeliculasActoresController {
 
     @Autowired
@@ -28,6 +29,7 @@ public class PeliculasActoresController {
     @PutMapping("/peliculas/{peliculaId}/actor/{id}")
     public ResponseEntity asignarActorPelicula(@PathVariable("peliculaId") Integer peliculaId,
                                      @PathVariable("id") Integer id) {
+        System.out.println("asignarActorPelicula");
         ServiceAndSaveResponse service =  peliculaActorService.asignarActorPelicula(peliculaId, id);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(service);
     }

@@ -8,5 +8,6 @@ public class CustomLabel_ES {
     public static String eliminarCritica_exito = "Se ha eliminado la critica con éxito";
     public static String actualizarCritica_fallo = "No se ha podido actualizar la critica";
     public static String actualizarCritica_exito = "Se ha actualizado la critica con éxito";
+    public static String eliminarCritica_usuario_fallo = "El usuario no existe";
 
 }

@@ -2,9 +2,12 @@ package com.nachohm.usuariosCriticas.controllers;
 
 import com.nachohm.usuariosCriticas.models.Usuario;
 import com.nachohm.usuariosCriticas.services.IUsuariosService;
+import com.nachohm.usuariosCriticas.types.CustomLabel_ES;
+import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -49,6 +52,7 @@ public class UsuariosController {
 
     @PutMapping("/usuarios")
     public void actualizarUsuario(@RequestBody Usuario usuario) {
+        System.out.println("actualizarUsuario");
         usuariosService.actualizarUsuario(usuario);
     }
 

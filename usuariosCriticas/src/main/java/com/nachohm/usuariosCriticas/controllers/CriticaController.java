@@ -6,13 +6,16 @@ import com.nachohm.usuariosCriticas.services.ICriticaService;
 import com.nachohm.usuariosCriticas.services.IUsuariosService;
 import com.nachohm.usuariosCriticas.types.CustomLabel_ES;
 import com.nachohm.usuariosCriticas.wrappers.ServiceAndSaveResponse;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:9000")
 public class CriticaController {
 
     @Autowired
@@ -35,6 +38,19 @@ public class CriticaController {
         return criticaService.buscarCriticaPorPelicula(peliculaId);
     }
 
+    @GetMapping("/criticas/pelicula/{peliculaId}/media")
+    public Integer buscarMediaCriticaPelicula(@PathVariable("peliculaId") Integer peliculaId) {
+        final List<Critica> lstCritica = criticaService.buscarCriticaPorPelicula(peliculaId);
+        Integer media = 0;
+        if (!lstCritica.isEmpty()) {
+            for (Critica critica : lstCritica) {
+                media = critica.getNota() + media;
+            }
+            media = media / lstCritica.size();
+        }
+        return media;
+    }
+
     @GetMapping("/criticas/nota/{nota}")
     public List<Critica> buscarCriticaPorNota(@PathVariable("nota") Integer nota) {
         return criticaService.buscarCriticaPorNota(nota);
@@ -42,6 +58,7 @@ public class CriticaController {
 
     @PostMapping("/criticas/{usuarioId}")
     public ServiceAndSaveResponse guardarCritica(@RequestBody Critica critica, @PathVariable("usuarioId") Integer usuarioId) {
+        System.out.println("guardarCritica");
         ServiceAndSaveResponse service = new ServiceAndSaveResponse();
         Usuario usuario = usuariosService.buscarUsuarioPorId(usuarioId);
         if (usuario == null) {
@@ -49,6 +66,10 @@ public class CriticaController {
             service.setMessage(CustomLabel_ES.crearCritica_usuario_noexiste);
         } else {
             final List<Critica> lstCriticas = usuario.getCriticas();
+            System.out.println("lstCriticas");
+            System.out.println(lstCriticas);
+            java.util.Date date = new java.util.Date();
+            critica.setFecha(new Date(date.getTime()));
             lstCriticas.add(critica);
             usuario.setCriticas(lstCriticas);
             criticaService.guardarCritica(critica);
@@ -61,6 +82,8 @@ public class CriticaController {
 
     @PutMapping("/criticas")
     public ServiceAndSaveResponse actualizarCritica(@RequestBody Critica critica) {
+        System.out.println("critica");
+        System.out.println(critica);
         final ServiceAndSaveResponse service = new ServiceAndSaveResponse();
         if (criticaService.buscarCriticaPorId(critica.getId()) == null) {
             service.setCode(400);
@@ -73,16 +96,29 @@ public class CriticaController {
         return service;
     }
 
-    @DeleteMapping("/criticas/{id}")
-    public ServiceAndSaveResponse eliminarCritica(@PathVariable("id") Integer id) {
+    @DeleteMapping("/criticas/{id}/usuario/{userId}")
+    public ServiceAndSaveResponse eliminarCritica(@PathVariable("id") Integer id, @PathVariable("userId") Integer userId) {
         final ServiceAndSaveResponse service = new ServiceAndSaveResponse();
         if (criticaService.buscarCriticaPorId(id) == null) {
             service.setCode(400);
             service.setMessage(CustomLabel_ES.eliminarCritica_fallo);
         } else {
-            service.setCode(200);
-            service.setMessage(CustomLabel_ES.eliminarCritica_exito);
-            criticaService.eliminarCritica(id);
+            List<Critica> lstCritica = new ArrayList<>();
+            Usuario usuario = usuariosService.buscarUsuarioPorId(userId);
+            if (usuario == null) {
+                service.setCode(400);
+                service.setMessage(CustomLabel_ES.eliminarCritica_usuario_fallo);
+            } else {
+                for (Critica critica : usuario.getCriticas()) {
+                    if (critica.getId() != id) {
+                        lstCritica.add(critica);
+                    }
+                }
+                usuario.setCriticas(lstCritica);
+                usuariosService.guardarUsuario(usuario);
+                service.setCode(200);
+                service.setMessage(CustomLabel_ES.eliminarCritica_exito);
+            }
         }
         return service;
     }

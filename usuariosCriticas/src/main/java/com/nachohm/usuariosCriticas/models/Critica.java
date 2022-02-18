@@ -1,7 +1,7 @@
 package com.nachohm.usuariosCriticas.models;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Date;
 
 @Entity
 @Table(name = "criticas")
@@ -21,13 +21,13 @@ public class Critica {
     private Integer nota;
 
     @Column(name = "fecha")
-    private LocalDate fecha;
+    private Date fecha;
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

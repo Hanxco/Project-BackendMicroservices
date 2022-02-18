@@ -17,9 +17,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error, Model model, Principal principal) {
-        System.out.println("HERE LOGIN");
         if (principal != null) { return "redirect:/"; }
-
         if (error != null) {
             model.addAttribute("msg","Error al iniciar sesión: Nombre de usuario o contraseña incorrecta, por favor vuelva a intentarlo!");
         }

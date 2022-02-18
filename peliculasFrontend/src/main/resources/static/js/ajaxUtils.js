@@ -1,11 +1,11 @@
 // AJAX Functions works with SaveAndResponseWrapper class
-function invokeAjax(method, endpoint) {
+function invokeAjax(endpoint) {
     return new Promise(function(resolve, reject) {
         $.ajax({
-            type : method,
+            type : 'GET',
             url : endpoint,
             success : function(result) {
-                resolve();
+                resolve(result);
             },
             error : function(thrownError) {
                 reject(thrownError);
@@ -18,15 +18,19 @@ function invokeAjaxPost(endpoint, data) {
     return new Promise(function(resolve, reject) {
         $.ajax({
             type : 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             url : endpoint,
-            data: data,
+            dataType: 'json',
+            data: JSON.stringify(data),
             success : function(result) {
-                resolve();
+                resolve(result);
             },
             error : function(thrownError) {
                 reject(thrownError);
-            },
-            dataType: 'json'
+            }
         });
     });
 }

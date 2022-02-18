@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Peliculas</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/menuStyle.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+    <div th:insert="fragments/menu :: menu-header"></div>
+    <div class="row">
+        <div class="col-9">
+            <h1 class="display-6 ms-5" th:text="${titlePage}"></h1>
+        </div>
+    </div>
+    <div class="container pt-3 ps-5 pe-5 pb-5">
+        <form th:action="@{/criticas/guardar/}" method="post" th:object="${criticas}">
+            <div class="form-floating mb-3">
+                <input type="hidden" class="form-control" id="criticas-id" name="id" th:field="*{id}" th:value="${criticas.id}">
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="peliculaId" name="peliculaId" th:field="*{peliculaId}" th:value="${criticas.peliculaId}" required>
+                <label for="peliculaId">Pelicula asociada</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="valoracion" name="valoracion" th:field="*{valoracion}" th:value="${criticas.valoracion}" required>
+                <label for="valoracion">Valoración</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="nota" name="nota" th:field="*{nota}" th:value="${criticas.nota}" min="1" max="10" required>
+                <label for="nota">Nota</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="fecha" name="fecha" th:field="*{fecha}" th:value="${criticas.fecha}" required>
+                <label for="fecha">Fecha</label>
+            </div>
+            <div class="row justify-content-md-center mt-5 ms-5">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" id="volver-listado-criticas">Volver</button>
+                    <button th:if="${mode} == 'edit'" type="button" class="btn btn-danger" id="eliminar-critica-btn">Eliminar registro</button>
+                    <button type="submit" class="btn btn-dark">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/scriptEdit.js}"></script>
+
+</body>
+</html>

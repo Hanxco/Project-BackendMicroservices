@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
     <meta charset="UTF-8">
     <title>Peliculas</title>
@@ -10,23 +11,13 @@
 </head>
 <body>
 <div class="app">
-    <header>
-        <h1 id="logoFilm">Filmopini<strong>o</strong>n</h1>
-        <nav id="navbar">
-            <ul id="main-menu">
-                <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
-                <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
-                <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
-            </ul>
-        </nav>
-        <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
-    </header>
+    <div th:insert="fragments/menu :: menu-header"></div>
     <div class="row">
-        <div class="col-9">
+        <div class="col-12">
             <h1 class="display-6 ms-5" th:text="${titlePage}"></h1>
         </div>
-        <div class="col-3">
-            <button type="button" class="btn btn-primary" id="volver-listado-peliculas">Volver</button>
+        <div class="col-12">
+            <button type="button" class="btn btn-primary ms-5" id="volver-listado-peliculas">Volver</button>
         </div>
     </div>
     <div class="container pt-3 ps-5 pe-5 pb-5">
@@ -74,22 +65,24 @@
                 <input type="text" class="form-control" id="image" name="image" th:field="*{image}" th:value="${pelicula.image}">
                 <label for="image">Link image</label>
             </div>
+            <h6>Reparto actores</h6>
             <div th:if="${mode} == 'edit'" class="row">
                 <div class="col">
-                    <h6>Reparto actores</h6>
+                    <h6>Asignar nuevo actor/actriz: </h6>
                     <input class="form-control form-control-sm"
                            type="text"
                            id="search-member-input"
                            placeholder="busca un usuario ...">
                     <div id="table-searched" style="display: none; position: absolute; z-index: 2;">
                         <div class="list-group" id="table-searched-group">
-                            <ul th:each="actor : ${todosActores}">
+                            <ul style="margin-bottom: 0px;" th:each="actor : ${todosActores}">
                                 <li class="list-group-item itemBuscador" th:id="${'itemsearch-' + actor.id}" th:text="${actor.nombre}"></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <br/>
             <ul th:if="${mode} == 'edit'" class="list-group mt-3">
                 <li class="list-group-item" th:each="actor : ${lstActores}">
                     <div class="table-responsive">
@@ -97,7 +90,8 @@
                             <tr>
                                 <td th:text="${actor.nombre}"></td>
                                 <td>
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash ms-3"
+                                       th:onclick="'javascript:deleteActor(this,' + ${actor.id} + ')'" >
                                 </td>
                             </tr>
                         </table>
@@ -106,8 +100,10 @@
             </ul>
             <div class="row justify-content-md-center mt-5 ms-5">
                 <div class="col">
-                    <button th:if="${mode} == 'edit'" type="button" class="btn btn-danger" id="eliminar-pelicula-btn">Eliminar registro</button>
-                    <button type="submit" class="btn btn-dark">Guardar</button>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <button th:if="${mode} == 'edit'" type="button" class="btn btn-danger" id="eliminar-pelicula-btn">Eliminar registro</button>
+                        <button type="submit" class="btn btn-dark">Guardar</button>
+                    </div>
                 </div>
             </div>
         </form>

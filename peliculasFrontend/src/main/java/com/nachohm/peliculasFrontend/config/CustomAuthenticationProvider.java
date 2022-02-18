@@ -32,9 +32,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final String usuario = authentication.getName();
         final String password = authentication.getCredentials().toString();
         final Usuario usuarioLogueado = usuariosService.login(usuario, password);
+        System.out.println("usuarioLogueado => " + usuarioLogueado);
         if (usuarioLogueado != null) {
             final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
+            System.out.println("usuarioLogueado.getRoles() => " + usuarioLogueado.getRoles());
             for (Rol rol : usuarioLogueado.getRoles()) {
+                System.out.println("rol => " + rol.getAuthority());
                 grantedAuths.add(new SimpleGrantedAuthority(rol.getAuthority()));
             }
             final UserDetails principal = new User(usuario, password, grantedAuths);

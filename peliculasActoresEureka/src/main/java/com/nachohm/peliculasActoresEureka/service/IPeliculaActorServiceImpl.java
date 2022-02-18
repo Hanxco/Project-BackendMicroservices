@@ -26,6 +26,8 @@ public class IPeliculaActorServiceImpl implements IPeliculaActorService {
         Pelicula pelicula = peliculasDAO.buscarPorId(peliculaId);
         Actores actor = actoresDAO.buscarActorPorId(actorId);
         ServiceAndSaveResponse service = new ServiceAndSaveResponse();
+        System.out.println("actor");
+        System.out.println(actor);
         if (actor == null) {
             service.setCode(400);
             service.setMessage(CustomLabel_ES.asignarActor_error_actor_not_found);
@@ -37,6 +39,9 @@ public class IPeliculaActorServiceImpl implements IPeliculaActorService {
             pelicula.setActoreses(lstActores);
             peliculasDAO.guardarPelicula(pelicula);
         }
+        System.out.println("service");
+        System.out.println(service);
+
         return service;
     }
 
