@@ -80,3 +80,31 @@ ul#main-menu ul#submenu.hide-submenu {
     margin-right: 10px;
     counter-increment: gallery-cell;
 }
+
+#logoCover {
+    background-color: #fff;
+    border-radius: 40px 40px 40px 40px;
+    -moz-border-radius: 40px 40px 40px 40px;
+    -webkit-border-radius: 40px 40px 40px 40px;
+    border: 0px solid #000000;
+}
+
+.cardGroupLogin {
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 40px 40px 40px 40px;
+    -webkit-border-radius: 40px 40px 40px 40px;
+    border: 0px solid #000000;
+}
+
+#alertRound {
+    margin-top: 1em;
+    opacity: 0.8em;
+}
+
+#init-container-fluid {
+    background-image: url("https://images.ctfassets.net/3s5io6mnxfqz/3qYlrsjfuRzOrGBvGW3iog/1028a32ba6d03297f9f0c6e337ade965/AdobeStock_113882591.jpeg?fm=jpg&w=900&fl=progressive");
+}
+
+#container-fluid {
+    background-color: #fff;
+}

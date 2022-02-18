@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
     <meta charset="UTF-8">
     <title>Peliculas</title>
@@ -10,23 +11,13 @@
 </head>
 <body>
     <div class="app">
-        <header>
-            <h1 id="logoFilm">Filmopini<strong>o</strong>n</h1>
-            <nav id="navbar">
-                <ul id="main-menu">
-                    <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
-                    <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
-                    <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
-                </ul>
-            </nav>
-            <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
-        </header>
+        <div th:insert="fragments/menu :: menu-header"></div>
         <div class="row">
-            <div class="col-9">
+            <div class="col-12">
                 <h1 class="display-6 ms-5" th:text="${titlePage}"></h1>
             </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-primary" id="volver-listado-actores">Volver</button>
+            <div class="col-12">
+                <button type="button" class="btn btn-primary ms-5" id="volver-listado-actores">Volver</button>
             </div>
         </div>
         <div class="container p-5">
@@ -46,8 +37,10 @@
                     <input type="date" class="form-control" th:field="*{fechaNacimiento}" name="fechaNacimiento" id="fechaNacimiento-pelicula" th:value="${actor.fechaNacimiento}">
                     <label for="fechaNacimiento-pelicula">Fecha de nacimiento</label>
                 </div>
-                <button th:if="${mode} == 'edit'" type="button" class="btn btn-danger" id="eliminar-actor-btn">Eliminar registro</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <button th:if="${mode} == 'edit'" type="button" class="btn btn-danger" id="eliminar-actor-btn">Eliminar registro</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
             </form>
         </div>
     </div>

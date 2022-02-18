@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CursosApp | Aplicación de gestión de cursos</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/menuStyle.css}" rel="stylesheet">
+    <link th:href="@{/css/flickity.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="container px-5 py-5">
+        <div id="logoCover">
+            <header>
+                <h1 id="logoFilm">Filmopini<strong>o</strong>n</h1>
+            </header>
+        </div>
+        <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div>
+        <hr>
+        <div id="cardGroupLogin" class="card-group">
+            <div class="card pt-3">
+                <h3 class="card-title">Registro nuevo usuario</h3>
+                <form th:action="@{/usuarios/registrar}" method="post" th:object="${usuario}">
+                    <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
+                        Por favor corrija los siguientes errores:
+                        <ul>
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"/>
+                        </ul>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" th:field="*{username}" id="username" name="username"
+                               placeholder="Escriba el nombre del usuario" required="required">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Clave</label>
+                        <input type="password" class="form-control" th:field="*{password}" id="password" name="password"
+                               placeholder="Escriba la clave del usuario" required="required">
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" class="form-control" th:field="*{correo}" id="correo" name="correo"
+                               placeholder="Escriba el correo del usuario" required="required">
+                    </div>
+                    <a class="btn btn-primary" role="button" th:href="@{/login}">Volver</a>
+                    <button type="submit" class="btn btn-dark">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/ajaxUtils.js}"></script>
+    <script th:src="@{/js/flickity.pkgd.min.js}"></script>
+
+</body>
+</html>

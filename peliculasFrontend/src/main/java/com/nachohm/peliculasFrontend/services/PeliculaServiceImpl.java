@@ -19,11 +19,12 @@ public class PeliculaServiceImpl implements IPeliculaService {
     @Autowired
     RestTemplate template;
 
-    String url = "http://localhost:8001/peliculas";
+    private static String SERVICE_URL = "http://localhost:8001/peliculas";
+    //private static String SERVICE_URL = "http://localhost:8082/api-gateway/";
 
     @Override
     public Page<Peliculas> buscarTodasPeliculas(Pageable pageable) {
-        Peliculas[] peliculas = template.getForObject(url, Peliculas[].class);
+        Peliculas[] peliculas = template.getForObject(SERVICE_URL, Peliculas[].class);
         List<Peliculas> pelisList = Arrays.asList(peliculas);
 
         int pageSize = pageable.getPageSize();
@@ -39,25 +40,28 @@ public class PeliculaServiceImpl implements IPeliculaService {
         }
 
         Page<Peliculas> page = new PageImpl<>(list, PageRequest.of(currentPage, pageSize), pelisList.size());
+        for (Peliculas pelicula : page) {
+            System.out.println("peli => " + pelicula);
+        }
         return page;
     }
 
     @Override
     public Peliculas buscarPeliculaPorId(Integer id) {
-        Peliculas pelicula = template.getForObject(url + "/" + id, Peliculas.class);
+        Peliculas pelicula = template.getForObject(SERVICE_URL + "/" + id, Peliculas.class);
         return pelicula;
     }
 
     @Override
     public List<Peliculas> buscarPeliculaGenero(String genero) {
-        Peliculas[] peliculas = template.getForObject(url + "/genero/" + genero, Peliculas[].class);
+        Peliculas[] peliculas = template.getForObject(SERVICE_URL + "/genero/" + genero, Peliculas[].class);
         List<Peliculas> pelisList = Arrays.asList(peliculas);
         return pelisList;
     }
 
     @Override
     public List<Peliculas> buscarPeliculaAnio(Integer year) {
-        Peliculas[] peliculas = template.getForObject(url + "/anio/" + year, Peliculas[].class);
+        Peliculas[] peliculas = template.getForObject(SERVICE_URL + "/anio/" + year, Peliculas[].class);
         List<Peliculas> pelisList = Arrays.asList(peliculas);
         return pelisList;
     }
@@ -65,14 +69,14 @@ public class PeliculaServiceImpl implements IPeliculaService {
     @Override
     public void guardarPelicula(Peliculas pelicula) {
         if (pelicula.getId() != null && pelicula.getId() > 0) {
-            template.put(url, pelicula);
+            template.put(SERVICE_URL, pelicula);
         } else {
             pelicula.setId(0);
-            template.postForObject(url, pelicula, String.class);
+            template.postForObject(SERVICE_URL, pelicula, String.class);
         }
     }
 
     @Override
-    public void eliminarPelicula(Integer id) { template.delete(url + "/" + id); }
+    public void eliminarPelicula(Integer id) { template.delete(SERVICE_URL + "/" + id); }
 
 }

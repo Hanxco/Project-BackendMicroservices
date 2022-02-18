@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<header th:fragment="menu-header">
+    <h1 id="logoFilm">Filmopini<strong>o</strong>n</h1>
+    <nav id="navbar">
+        <ul id="main-menu">
+            <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <li><a href="/usuarios/listado"><i class="fas fa-user"></i>Usuarios</a></li>
+                <li><a href="/criticas/listado"><i class="fas fa-star"></i>Criticas</a></li>
+            </div>
+            <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
+            <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
+            <li><a href="/criticas/listado"><i class="fas fa-star"></i>Buscador avanzado</a></li>
+            </td>
+        </ul>
+    </nav>
+    <div class="search"><p sec:authentication="name"></p>
+    <input class="btn btn-primary"
+               type="button"
+               id="logout-btn"
+               name="logout-btn"
+               value="Cerrar sesión">
+    </div>
+</header>
+</html>

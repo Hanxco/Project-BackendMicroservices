@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 8082
+zuul:
+  routes:
+    peliculasEureka:
+      path: /peliculas/**
+      service-id: servicio-peliculas-actores
+    actoresEureka:
+      path: /actores/**
+      service-id: servicio-peliculas-actores
+    usuariosEureka:
+      path: /usuarios/**
+      service-id: servicio-usuarios-criticas
+    criticasEureka:
+      path: /criticas/**
+      service-id: servicio-usuarios-criticas
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timpoeoutInMilliseconds: 2000

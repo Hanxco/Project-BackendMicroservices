@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
     <meta charset="UTF-8">
     <title>Peliculas</title>
@@ -11,28 +12,83 @@
 </head>
 <body>
     <div class="app">
-        <header>
-            <h1 id="logoFilm">Filmopini<strong>o</strong>n</h1>
-            <nav id="navbar">
-                <ul id="main-menu">
-                    <li><a href="/"><i class="fas fa-film"></i>Inicio</a></li>
-                    <li><a href="/peliculas/listado"><i class="fas fa-film"></i>Peliculas</a></li>
-                    <li><a href="/actores/listado"><i class="fas fa-user-friends"></i>Actores</a></li>
-                </ul>
-            </nav>
-            <div class="search"><svg><use xlink:href="#ico-search"></use></svg></div>
-        </header>
+        <div th:insert="fragments/menu :: menu-header"></div>
         <h3 class="ms-5 text-dark">Las más destacadas</h3>
         <!-- Flickity HTML init -->
         <div class="gallery js-flickity destacadas"
              data-flickity-options='{ "groupCells": true }'>
             <div th:each="pelicula : ${listadoPeliculas}" class="gallery-cell movies">
                 <div class="movie">
+                    <input type="text" th:value="${pelicula.id}" hidden/>
                     <img th:src="@{${pelicula.image}}" alt="" class="poster" />
                     <div class="title" th:text="${pelicula.titulo}"></div>
                     <span class="length" th:text="${pelicula.duracion} + 'min.'"></span>
                     <div class="genero" th:text="${pelicula.genero}"></div>
                     <div class="descripcion" th:text="${pelicula.sinopsis}"></div>
+                    <div class="acteres">
+                        <h5 class="mt-3">Reparto</h5>
+                        <table>
+                            <tbody>
+                                <tr th:each="actor: ${pelicula.actoreses}">
+                                    <td th:text="${actor.nombre}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4 class="mt-3">Críticas</h4>
+                    <b class="valoracion-text">Valoración media: </b>
+                    <div class="rating-medio mt-3 p-3 mb-3">
+                    </div>
+                    <h5 class="mt-3">Hay críticas disponibles</h5>
+                    <input type="button"
+                           class="btn btn-secondary"
+                           value="Ver más"
+                           th:onclick="'javascript:verMasCriticas(this,' + ${pelicula.id} + ')'" >
+                    <div class="container-criticas mt-4">
+                        <ul class="list-group">
+                        </ul>
+                    </div>
+                    <i class="fa-solid fa-user-bounty-hunter"></i>
+                    <div class="rating mt-3">
+                        <h4 class="mt-3">Añade tú valoración sobre la película</h4>
+                        <div class="form-control-floating mb-3">
+                            <textarea class="form-control"
+                                      placeholder="Valoración"
+                                      id="valoracion"
+                                      name="valoracion"
+                                      style="height: 100px"></textarea>
+                        </div>
+                        <i class="fas fa-star"></i>
+                        <small class="text-muted">Tu opinión cuenta</small>
+                        <select class="form-select form-select-lg mb-3 mt-3"
+                                th:onchange="'javascript:changeSelect(this,' + ${pelicula.id} + ')'"
+                                aria-label="Rating select">
+                            <option >Puntúa del 1 al 10</option>
+                            <option value="1">1 - Muy mala</option>
+                            <option value="2">2 - Bastante mala</option>
+                            <option value="3">3 - Mala</option>
+                            <option value="4">4 - Regular</option>
+                            <option value="5">5 - Pasable</option>
+                            <option value="6">6 - Aceptable</option>
+                            <option value="7">7 - Buena</option>
+                            <option value="8">8 - Bastante buena</option>
+                            <option value="9">9 - Muy buena</option>
+                            <option value="10">10 - Excelente</option>
+                        </select>
+                        <input type="text" th:id="'selected-rating-' + ${pelicula.id}" name="selected-rating" hidden/>
+                        <div class="d-grid gap-2">
+                            <input type="button" class="btn btn-warning btn-lg rating-btn" id="rating-btn"
+                                   th:onclick="'javascript:onRating(this,' + ${pelicula.id} + ',' + ${userId} +')'"
+                                   value="Valorar ahora" />
+                        </div>
+                    </div>
+                    <div class="rating-complete mt-3 p-3" style="display: none;">
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fa-solid fa-message-smile"></i>
+                            Ya has realizado una crítica para esta película.
+                            Gracias por contribuir!
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,6 +138,7 @@
             </div>
         </div>
     </div>
+    <input hidden id="setCriticasUser" type="text" th:value="${setCriticas}"></div>
 
     <!-- Icons -->
     <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none;">
@@ -101,7 +158,9 @@
     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/ajaxUtils.js}"></script>
     <script th:src="@{/js/flickity.pkgd.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
 
 </body>
 </html>

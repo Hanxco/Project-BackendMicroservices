@@ -1,5 +1,7 @@
 package com.nachohm.peliculasFrontend.models;
 
+import java.util.List;
+
 public class Peliculas {
 
   private Integer id;
@@ -11,7 +13,7 @@ public class Peliculas {
   private String sinopsis;
   private String genero;
   private String image;
-
+  private List<Actores> actoreses;
 
   public Integer getId() {
     return id;
@@ -92,10 +94,18 @@ public class Peliculas {
     this.image = image;
   }
 
+  public List<Actores> getActoreses() {
+    return actoreses;
+  }
+
+  public void setActoreses(List<Actores> actoreses) {
+    this.actoreses = actoreses;
+  }
+
   @Override
   public String toString() {
     return "Peliculas{" +
-            "idPeliculas=" + id +
+            "id=" + id +
             ", titulo='" + titulo + '\'' +
             ", anio=" + anio +
             ", duracion=" + duracion +
@@ -103,6 +113,8 @@ public class Peliculas {
             ", direccion='" + direccion + '\'' +
             ", sinopsis='" + sinopsis + '\'' +
             ", genero='" + genero + '\'' +
+            ", image='" + image + '\'' +
+            ", actoreses=" + actoreses +
             '}';
   }
 }

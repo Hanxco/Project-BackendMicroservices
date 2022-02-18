@@ -97,7 +97,6 @@ header .search svg {
 
 .movie {
   padding: 10px;
-  cursor: pointer;
 }
 .movie .poster {
   width: 150px;
@@ -166,6 +165,17 @@ header .search svg {
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.5s cubic-bezier(0.67, 0.13, 0.1, 0.81);
 }
+.detail .acteres {
+  position: absolute;
+  z-index: 2;
+  top: 27%;
+  left: 3%;
+  padding: 3%;
+  height: 20%;
+  border-radius: 5px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.67, 0.13, 0.1, 0.81);
+}
 .detail .title,
 .detail .info,
 .detail .desc,
@@ -194,22 +204,7 @@ header .search svg {
   font-size: 14px;
   line-height: 1.6;
 }
-.detail .play {
-  background: linear-gradient(90deg, #E4761F, #FF8B32);
-  border: none;
-  border-radius: 20px;
-  color: #fff;
-  font-size: 12px;
-  line-height: 1.5;
-  padding: 8px 17px;
-  margin: 30px 0 0 -2px;
-  text-transform: uppercase;
-  z-index: 10;
-  outline: none !important;
-  cursor: pointer;
-  opacity: 0;
-}
-.detail .play svg {
+.detail svg {
   vertical-align: middle;
   position: relative;
   top: -2px;
