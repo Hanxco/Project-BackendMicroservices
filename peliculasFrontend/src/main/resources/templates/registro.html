@@ -18,7 +18,7 @@
         <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div>
         <hr>
         <div id="cardGroupLogin" class="card-group">
-            <div class="card pt-3">
+            <div class="card pt-3 p-3">
                 <h3 class="card-title">Registro nuevo usuario</h3>
                 <form th:action="@{/usuarios/registrar}" method="post" th:object="${usuario}">
                     <div th:if="${#fields.hasErrors('*')}" class='alert alert-danger' role='alert'>
